@@ -2,5 +2,7 @@ package melibook
 
 class AreaController {
 
-    def index() { }
+    def index() {
+
+    }
 }
