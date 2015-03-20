@@ -15,10 +15,10 @@
 				font-family: Lato;
 			}
 			nav {
-				background-color: #FFF059;
+				background-color: #FFD500;
 				border-bottom: 1px solid rgb(216, 216, 64);
 			    box-shadow: 0px 0px 6px #DDDCAC;
-				color: #2D3277;
+				color: #FFFFFF;
 				font-size: 25px;
 				font-weight: 300;
 				padding: 10px;
