@@ -7,7 +7,7 @@ import grails.transaction.Transactional
 class PostService {
 
     def create(def post){
-    	post.save()
+        post.save()
     }
 
     def delete(def post){
