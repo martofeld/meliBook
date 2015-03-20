@@ -13,8 +13,7 @@ class Message {
     
     static constraints = {
     	timestamp nullable: false
-    	to nullable: false
-    	from nullable: false
+    	sender nullable: false
     	message nullable: false
     }
 }
