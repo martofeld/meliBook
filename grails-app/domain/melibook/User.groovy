@@ -9,7 +9,7 @@ class User {
 	Date birth
 	
 	static belongsTo = [area: Area]
-	static hasMany = [posts: Post, messages: Message]
+	static hasMany = [posts: Post]
 
     static constraints = {
     	name nullable: false
