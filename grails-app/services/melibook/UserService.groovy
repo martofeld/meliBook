@@ -5,18 +5,36 @@ import grails.transaction.Transactional
 @Transactional
 class UserService {
 
-    def create(def userCmd){
+    def create(userCommand){
         //+ logica
         println "service"
-        def all = new Role(authority: "ROLE_ALL").save()
 
-        def user = userCmd.getUser()
-        if(!user.save())
-            return false    
-        def springUser = userCmd.getSpringUser()
-        if(!springUser.save())
-            return false
-        SpringUserRole.create springUser, all, true
+        def user = userCommand.getUser()
+        println user
+        def area = Area.findByName(userCommand.area)
+        println area
+        if(area != null){
+            area.addToUsers(user)
+        }else{
+            area = new Area(name: userCommand.area).save(flush:true)
+            area.addToUsers(user)
+        }
+
+        if(!user.save()) {
+            user.errors.each { println "${it}asd" }    
+            return false;
+        }
+
+        def springUser = userCommand.getSpringUser()
+        println springUser
+        springUser.user = user
+        
+        if(!springUser.save()) {
+            springUser.errors.each { println "${it}dsa"}    
+            return false;
+        }
+
+        SpringUserRole.create springUser, Role.findByAuthority("ROLE_USER"), true
         return true
         
     }
