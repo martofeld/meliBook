@@ -5,9 +5,20 @@ import grails.transaction.Transactional
 @Transactional
 class UserService {
 
-    def create(user){
+    def create(def userCmd){
         //+ logica
-        user.save()
+        println "service"
+        def all = new Role(authority: "ROLE_ALL").save()
+
+        def user = userCmd.getUser()
+        if(!user.save())
+            return false    
+        def springUser = userCmd.getSpringUser()
+        if(!springUser.save())
+            return false
+        SpringUserRole.create springUser, all, true
+        return true
+        
     }
 
     def delete(user){
@@ -25,4 +36,6 @@ class UserService {
     def findAllByArea(area){
         User.findAllByArea(area)
     }
+
+    def checkName 
 }
