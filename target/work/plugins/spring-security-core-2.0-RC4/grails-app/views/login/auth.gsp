@@ -120,10 +120,13 @@
 
 			<div class="form-group">
 				<input type='submit' id="submit" class="btn btn-default" value='${message(code: "springSecurity.login.button")}'/>
+
+				
 			</div>
 
-
 		</form>
+		<a id="register" class="btn btn-default" value='Sign Up' href="${createLink(controller:'user', action:'register')}">Sign Up</a><br>
+
 <script type='text/javascript'>
 	<!--
 	(function() {

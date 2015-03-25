@@ -36,6 +36,19 @@
 				-webkit-box-shadow: 2px 2px 2px #eee;
 				-khtml-box-shadow: 2px 2px 2px #eee;
 				box-shadow: 0px 4px 5px #D5D5D5;
+				padding
+			}
+			.box-index {
+				width: 700px;
+				margin: 50px auto;
+				text-align: center;
+				border: 1px solid #F0F0F0;
+				background-color: #FFFFFF;
+				-moz-box-shadow: 2px 2px 2px #eee;
+				-webkit-box-shadow: 2px 2px 2px #eee;
+				-khtml-box-shadow: 2px 2px 2px #eee;
+				box-shadow: 0px 4px 5px #D5D5D5;
+				padding
 			}
 			.header {
 				padding: 18px 26px 14px 26px;
