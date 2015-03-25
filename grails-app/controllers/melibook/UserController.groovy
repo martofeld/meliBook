@@ -7,9 +7,8 @@ import melibook.*
 class UserController {
 	def userService
 
-
     def index() {
-
+        
     }
 
     @Secured(["permitAll"])

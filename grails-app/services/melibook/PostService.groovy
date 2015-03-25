@@ -5,8 +5,13 @@ import grails.transaction.Transactional
 //Cuando estas en una transaccion por default se hace un flush al final
 @Transactional
 class PostService {
+    def springSecurityService
 
-    def create(def post){
+    def create(def content){
+        Post post = new Post(content: content,
+                            user: springSecurityService.currentUser.user,
+                            timestamp: (new Date).toTimestamp(),
+                            likes: 0)
         post.save()
     }
 
