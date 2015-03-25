@@ -12,8 +12,9 @@
 		</form>
 
 		<g:each in="${posts}" var="post">
-			<span>${post.content} by ${post.user.name}</span>
-			<button onclick="addLike(${post.id})">like</button><br>
+			<span>${post.content} by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likes}</span> <br></span>
+			<input type="image" src="${resource(dir: '/', file: 'images/nolike-icon.png')}" onclick="addLike(${post.id})" id="likeAdder${post.id}" style="background: yellow"><br>
+			<!--<button onclick="addLike(${post.id})" id="likeAdder${post.id}">like</button><br>-->
 		</g:each>
 
 		<script type="text/javascript">
@@ -24,7 +25,10 @@
 					data: {id: id},
 					success: function(response){
 						console.log(response)
-						alert("ok");
+						var counter = "#likeCounter"+id;
+						var button = "#likeAdder"+id;
+						$(counter).html(response);
+						$(button).attr('disabled','disabled').attr('src', '${resource(dir: "/", file: "images/like-icon.png")}').attr('style', 'background: none');
 					},
 					error: function(response, error){
 						console.log(error)

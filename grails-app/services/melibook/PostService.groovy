@@ -28,7 +28,7 @@ class PostService {
         if(!post.save())
             return false
         else
-            return true
+            return post.likes
     }
 
     def findByUserAndArea(def user){

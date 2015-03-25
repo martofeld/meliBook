@@ -17,11 +17,13 @@ class PostController {
     }
 
     def addLike(int id){
-    	if(postService.addLike(id)){
-    		render "/"
-    		return true
-    	}else{
+    	def response = postService.addLike(id);
+    	println response
+    	if(!response){
     		return false
+    	}else{
+    		render response
+    		return
     	}
     }
 }
