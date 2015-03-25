@@ -53,8 +53,8 @@ class UserCommand {
 
     
     static constraints = {
-	    name(blank: false, minSize: 6)
-	    lastName(blank: false, minSize: 6)
+	    name(blank: false)
+	    lastName(blank: false)
 	   	birth(nullable: true)
 	   	mail(blank: false, minSize: 6)
 	   	password(blank: false, minSize: 6)
