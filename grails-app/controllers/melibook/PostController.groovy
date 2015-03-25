@@ -7,12 +7,11 @@ class PostController {
 	def postService
 
     def index() { 
-    	return [posts: Post.list().sort {
-    		it.timestamp
-    	}]
+    	return [posts: Post.list()]
     }
 
     def newPost(){
+    	println params.content
     	postService.create(params.content);
     	redirect controller: 'index', action: 'index'
     }

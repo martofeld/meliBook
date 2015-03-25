@@ -12,7 +12,7 @@
 		</form>
 
 		<g:each in="${posts}" var="post">
-			<p>${post.user.name}
+			<p>${post.content}
 		</g:each>
 	</body>
 </html>

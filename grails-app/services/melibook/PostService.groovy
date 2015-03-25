@@ -8,9 +8,10 @@ class PostService {
     def springSecurityService
 
     def create(def content){
+        println content
         Post post = new Post(content: content,
                             user: springSecurityService.currentUser.user,
-                            timestamp: (new Date).toTimestamp(),
+                            timestamp: (new Date()).toTimestamp(),
                             likes: 0)
         post.save()
     }
