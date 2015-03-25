@@ -22,6 +22,15 @@ class PostService {
         Post.get(post.id).delete()
     }
 
+    def addLike(def id){
+        def post = Post.findById(id);
+        post.likes++;
+        if(!post.save())
+            return false
+        else
+            return post.likes
+    }
+
     def findByUserAndArea(def user){
     	Post.findByUserAndArea(user, user.area)
     }
