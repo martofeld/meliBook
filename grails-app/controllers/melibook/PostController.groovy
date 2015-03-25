@@ -15,4 +15,13 @@ class PostController {
     	postService.create(params.content);
     	redirect controller: 'index', action: 'index'
     }
+
+    def addLike(int id){
+    	if(postService.addLike(id)){
+    		render "/"
+    		return true
+    	}else{
+    		return false
+    	}
+    }
 }

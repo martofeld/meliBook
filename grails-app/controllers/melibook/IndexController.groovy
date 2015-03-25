@@ -6,6 +6,8 @@ import grails.plugin.springsecurity.annotation.*
 class IndexController {
 
     def index() {
-    	
+    	return [posts: Post.list().sort { 
+    		it.timestamp
+    	}.reverse()]
     }
 }
