@@ -6,6 +6,7 @@ import melibook.*
 @Secured(["permitAll"])
 class UserController {
 	def userService
+    def springSecurityService
 
     def index() {
         
@@ -38,7 +39,8 @@ class UserController {
     }
 
     def conversations(){
-        conversations = Conversation.getByUser(springSecurityService.currentUser).list()
+        println "entra aca"
+        def conversations = springSecurityService.currentUser.user.conversations
         [conversations: conversations]
     }
     

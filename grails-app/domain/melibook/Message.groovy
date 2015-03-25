@@ -6,7 +6,7 @@ class Message {
 
 	Date timestamp
 	String message
-	boolean read
+	boolean visto = false
     User sender
 
     static belongsTo = [conversation: Conversation]
