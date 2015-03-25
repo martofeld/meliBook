@@ -37,6 +37,12 @@ class UserController {
     	}
     }
 
+    def conversations(){
+        conversations = Conversation.getByUser(springSecurityService.currentUser).list()
+        [conversations: conversations]
+    }
+    
+
     def profile(int id){
 
     }
