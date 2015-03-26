@@ -26,17 +26,17 @@ class UserController {
 	@Secured(["permitAll"])
     def register(UserCommand userCommand){
     	if(request.get){
-			return [userCommand: new UserCommand()]
+			return [userCommand: new UserCommand(), areas: Area.list()]
     	}
 
     	if (userCommand.hasErrors()) {
-    		return [userCommand: userCommand]
+    		return [userCommand: userCommand, areas: Area.list()]
 		}
 
     	if(userService.create(userCommand)){
     		redirect controller: 'login', action: 'auth'
     	}else{
-    		return [userCommand: userCommand]
+    		return [userCommand: userCommand, areas: Area.list()]
     	}
     }
 

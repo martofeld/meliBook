@@ -19,7 +19,8 @@ class PostController {
     def addLike(int id){
     	def response = postService.addLike(id);
     	println response
-    	if(!response){
+    	if(response == false){
+            render "error"
     		return false
     	}else{
     		render response

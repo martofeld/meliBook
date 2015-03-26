@@ -10,8 +10,8 @@ class UrlMappings {
         "/"(controller: 'index')
         "/$username" (controller: 'user', action: 'index')
         "/register" (controller: 'user', action: 'register')
-        "/login" (controller: 'login', action: 'auth')
         "/conversations" (controller: 'conversation', action: 'view')
+        "/login" (controller: 'login', action: 'auth')
         "500"(view:'/error')
 	}
 }

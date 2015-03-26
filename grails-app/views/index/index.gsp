@@ -13,7 +13,7 @@
 			</form>
 
 			<g:each in="${posts}" var="post">
-				<span>${post.content} by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likers.size()}</span> <br></span>
+				<span>${post.content} by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likes.size()}</span> <br></span>
 				<input type="image" src="${resource(dir: '/', file: 'images/nolike-icon.png')}" onclick="addLike(${post.id})" id="likeAdder${post.id}" style="background: yellow"><br>
 				<!--<button onclick="addLike(${post.id})" id="likeAdder${post.id}">like</button><br>-->
 			</g:each>
@@ -25,7 +25,7 @@
 			</form>
 
 			<g:each in="${areaPosts}" var="post">
-				<span>${post.content} by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likers.size()}</span> <br></span>
+				<span>${post.content} by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likes.size()}</span> <br></span>
 				<input type="image" src="${resource(dir: '/', file: 'images/nolike-icon.png')}" onclick="addLike(${post.id})" id="likeAdder${post.id}" style="background: yellow"><br>
 				<!--<button onclick="addLike(${post.id})" id="likeAdder${post.id}">like</button><br>-->
 			</g:each>

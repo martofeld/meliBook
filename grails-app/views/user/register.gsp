@@ -37,7 +37,7 @@
 					</div>
 
 					<div class="form-group">
-						<input class="form-control" type="text" name="area" placeholder="Area" value="${userCommand.area}"><br>
+						<g:select id="area" name="area" from="${areas}" optionKey="name" optionValue="name" />
 					</div>
 
 					<div class="form-group">

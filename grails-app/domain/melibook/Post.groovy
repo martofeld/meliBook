@@ -1,13 +1,13 @@
 package melibook
 
-import java.util.Date
+import java.util.*
 
 class Post {
 	Date timestamp
 	String content
-	ArrayList<User> likers = new ArrayList<User>();
 
 	static belongsTo = [user: User]
+	static hasMany = [likes: Like]
 
     static constraints = {
     	timestamp nullable: false
