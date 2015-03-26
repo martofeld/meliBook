@@ -7,7 +7,7 @@
 
 	<body>
 		<ul>
-			<g:each in="${conversation.messages}" var="message">
+			<g:each in="${conversation.messages.sort{it.timestamp}}" var="message">
 				<g:if test="${message.sender == conversation.users[0]}">
 					<li class="sender" align="left">
 						${message.message}
