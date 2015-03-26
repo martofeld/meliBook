@@ -10,9 +10,8 @@ class PostService {
     def create(def content){
         println content
         Post post = new Post(content: content,
-                            user: springSecurityService.currentUser.user,
-                            timestamp: (new Date()).toTimestamp(),
-                            likes: 0)
+                            timestamp: (new Date()).toTimestamp())
+        springSecurityService.currentUser.user.addToPosts(post)
         post.save()
     }
 
@@ -24,11 +23,25 @@ class PostService {
 
     def addLike(def id){
         def post = Post.findById(id);
-        post.likes++;
+        
+        if(!post.likers.findById(springSecurityService.currentUser.user.id))
+            post.likers.add(springSecurityService.currentUser.user);
+        else
+            return removeLike(post)
+
         if(!post.save())
             return false
         else
-            return post.likes
+            return post.likers.size()
+    }
+
+    def removeLike(post){
+        post.likers.remove(springSecurityService.currentUser.user)
+
+        if (!post.save())
+            return false
+        else
+            return post.likers.size()
     }
 
     def findByUserAndArea(def user){
