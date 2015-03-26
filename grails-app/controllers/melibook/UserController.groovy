@@ -46,8 +46,7 @@ class UserController {
 
     def conversations(){
         def conversations = springSecurityService.currentUser.user.conversations
-        [currentUser: springSecurityService.currentUser.user]
-        [conversations: conversations]
+        [conversations: conversations, currentUser: springSecurityService.currentUser.user]
     }
 
     def profile(int id){
