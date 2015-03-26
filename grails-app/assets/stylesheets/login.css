@@ -1,0 +1,60 @@
+body {
+	background-image: url('bg2.png');
+	font-family: Lato;
+	font-weight: lighter;
+}
+
+.login {
+	width: 400px;
+	height: 100%;
+	margin: auto;
+	background-color: rgba(44, 42, 47, 0.4);
+}
+
+.title {
+	font-size: 60px;
+	color: #fff;
+	text-align: center;
+	padding: 40px;
+	padding-bottom: 0px;
+}
+
+.subtitle {
+	font-size: 30px;
+	color: #fff;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.box {
+	width: 300px;
+	height: 264px;
+	margin: 15px auto;
+	padding: 10px;
+	text-align: center;
+	color: #fff;
+	font-size: 18px;
+	border-top: 1px dotted white;
+	border-bottom: 1px dotted white;
+}
+
+.login_message {
+	font-size: 16px;
+}
+
+.btn-default {
+	width: 60%;
+	color: #FFF;
+	background-color: rgba(255, 213, 0, 0.55);
+	border-color: rgba(236, 236, 236, 0.31);
+}
+
+.btn-default:hover {
+	color: #FFF;
+	background-color: #ECE919;
+	border-color: #DCCD4E;
+}
+
+label {
+	font-weight: lighter;
+}
