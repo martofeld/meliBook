@@ -51,15 +51,14 @@ class UserController {
     }
 
     def select_avatar() {
-
     }
 
     def upload_avatar() {
         def user = springSecurityService.currentUser.user // or however you select the current user
-
+        println user
     // Get the avatar file from the multi-part request
         def f = request.getFile('avatar')
-
+        println f.bytes
         // List of OK mime-types
         if (!okcontents.contains(f.getContentType())) {
             flash.message = "Avatar must be one of: ${okcontents}"
@@ -70,19 +69,21 @@ class UserController {
         // Save the image and mime type
         user.avatar = f.bytes
         user.avatarType = f.contentType
-        log.info("File uploaded: $user.avatarType")
+        println user.avatar
+        println "File uploaded: $user.avatarType"
 
         // Validation works, will check if the image is too big
-        if (!user.save()) {
+        if (!user.save(flush: true)) {
+            println "aa"
             render(view:'select_avatar', model:[user:user])
             return
         }
-        flash.message = "Avatar (${user.avatarType}, ${user.avatar.size()} bytes) uploaded."
-        redirect(action:'show') 
+        println "Avatar (${user.avatarType}, ${user.avatar.size()} bytes) uploaded."
+        redirect(action:'show')
     }
 
     def avatar_image() {
-        def avatarUser = springSecurityService.currentUser.user.id
+        def avatarUser = springSecurityService.currentUser.user
         if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
             response.sendError(404)
             return
@@ -96,7 +97,7 @@ class UserController {
 
 
     def show() {
-
+        [user: springSecurityService.currentUser.user]
     }
 }
 
