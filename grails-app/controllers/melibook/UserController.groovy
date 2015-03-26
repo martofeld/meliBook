@@ -12,7 +12,14 @@ class UserController {
     private static final okcontents = ['image/png', 'image/jpeg', 'image/gif']
 
     def index() {
-        
+        return [posts: springSecurityService.currentUser.user.posts.sort
+        {it.timestamp}.reverse(), user: springSecurityService.currentUser.user]
+    }
+
+    def wall(def username) {
+        def user = SpringUser.findByUsername(username).user
+        return [posts: user.posts.sort
+        {it.timestamp}.reverse(), user: user]
     }
 
     @Secured(["permitAll"])
@@ -40,12 +47,6 @@ class UserController {
     def conversations(){
         def conversations = springSecurityService.currentUser.user.conversations
         [conversations: conversations]
-    }
-    
-
-    def profile(int id){
-        return [posts: springSecurityService.currentUser.user.posts.sort { 
-            it.timestamp}.reverse()]
     }
 
     def select_avatar() {
@@ -76,7 +77,7 @@ class UserController {
             return
         }
         flash.message = "Avatar (${user.avatarType}, ${user.avatar.size()} bytes) uploaded."
-        redirect(action:'show')
+        redirect(action:'show') 
     }
 
     def avatar_image() {

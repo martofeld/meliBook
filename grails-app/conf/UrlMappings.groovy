@@ -8,6 +8,7 @@ class UrlMappings {
         }
 
         "/"(controller: 'index')
+        "/$user" (controller: 'user', action: 'wall')
         "500"(view:'/error')
 	}
 }
