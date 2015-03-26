@@ -44,6 +44,7 @@ class UserController {
     def conversations(){
         println "entra aca"
         def conversations = springSecurityService.currentUser.user.conversations
+        [currentUser: springSecurityService.currentUser.user]
         [conversations: conversations]
     }
     

@@ -12,7 +12,7 @@ class ConversationService {
 
     def createConversation(to, content){
     	def sender = springSecurityService.currentUser.user
-    	def receiver = User.findByName(to)?:new User(name: to, lastName: '', birth: new Date(), profilePicture:'')
+    	def receiver = SpringUser.findByUsername(to).user
     	def conversation = new Conversation().save()
     	def message = new Message(timestamp: (new Date()).toTimestamp(), message: content, sender: sender)
 
@@ -22,4 +22,13 @@ class ConversationService {
     	//conversation.save()
 
     }
+    def replyConversation(id, content){
+    	def sender = Conversation.findById(id).users[0]
+    	def message = new Message(timestamp: (new Date()).toTimestamp(), message: content, sender: sender)
+    	def conversation = Conversation.findById(id).addToMessages(message)
+    	conversation.save()
+
+    }
+
+
 }

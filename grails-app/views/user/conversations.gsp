@@ -25,7 +25,12 @@
 		</div>
 
 		<g:each in="${conversations}" var="conversation">
-			${conversation.users.findById(0).name} ${conversation.users.findById(0).lastName}
+			<g:if test="${conversation.users[0].name == currentUser.name}">
+				${conversation.users[1].name} ${conversation.users[1].lastName}	
+			</g:if>
+			<g:else>
+				${conversation.users[0].name} ${conversation.users[0].lastName}
+			</g:else>	
 			<a href="${createLink(controller: 'conversation', action: 'view', id: conversation.id)}"> Reply </a>
 		</g:each>
 

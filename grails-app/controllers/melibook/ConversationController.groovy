@@ -15,6 +15,11 @@ class ConversationController {
     	redirect controller: 'user', action: 'conversations'
     }
 
+    def reply(int id){
+    	conversationService.replyConversation(id, params.message)
+    	redirect controller: 'conversation', action: 'view', id: id
+    }
+
     def view(int id){
     	return [conversation: Conversation.findById(id)]
     }
