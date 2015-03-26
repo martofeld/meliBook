@@ -50,6 +50,11 @@ class UserController {
         [conversations: conversations]
     }
 
+    def profile(int id){
+        return [posts: springSecurityService.currentUser.user.posts.sort { 
+            it.timestamp}.reverse()]
+    }
+
     def select_avatar() {
 
     }
