@@ -11,15 +11,11 @@ class UserController {
 
     private static final okcontents = ['image/png', 'image/jpeg', 'image/gif']
 
-    def index() {
-        return [posts: springSecurityService.currentUser.user.posts.sort
-        {it.timestamp}.reverse(), user: springSecurityService.currentUser.user]
-    }
-
-    def wall(def username) {
-        def user = SpringUser.findByUsername(username).user
-        return [posts: user.posts.sort
-        {it.timestamp}.reverse(), user: user]
+    def index(String username) {
+        println username
+        def user = SpringUser.findByUsername(username)?.user
+        println user
+        [posts: user.posts.sort{it.timestamp}.reverse(), user: user]
     }
 
     @Secured(["permitAll"])
