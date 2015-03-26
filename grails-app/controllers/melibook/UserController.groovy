@@ -23,26 +23,21 @@ class UserController {
 	@Secured(["permitAll"])
     def register(UserCommand userCommand){
     	if(request.get){
-    		println "asdasdasda"
 			return [userCommand: new UserCommand()]
     	}
 
     	if (userCommand.hasErrors()) {
-    		println "errroerorororor"
     		return [userCommand: userCommand]
 		}
 
     	if(userService.create(userCommand)){
-    		println "holii"
     		redirect controller: 'login', action: 'auth'
     	}else{
-    		println "chauu"
     		return [userCommand: userCommand]
     	}
     }
 
     def conversations(){
-        println "entra aca"
         def conversations = springSecurityService.currentUser.user.conversations
         [conversations: conversations]
     }
@@ -86,7 +81,6 @@ class UserController {
 
     def avatar_image() {
         def avatarUser = springSecurityService.currentUser.user.id
-        println "sadsaddsa"
         if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
             response.sendError(404)
             return
