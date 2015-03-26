@@ -12,7 +12,14 @@ class UserController {
     private static final okcontents = ['image/png', 'image/jpeg', 'image/gif']
 
     def index() {
-        
+        return [posts: springSecurityService.currentUser.user.posts.sort
+        {it.timestamp}.reverse(), user: springSecurityService.currentUser.user]
+    }
+
+    def wall(def username) {
+        def user = SpringUser.findByUsername(username).user
+        return [posts: user.posts.sort
+        {it.timestamp}.reverse(), user: user]
     }
 
     @Secured(["permitAll"])
@@ -23,35 +30,24 @@ class UserController {
 	@Secured(["permitAll"])
     def register(UserCommand userCommand){
     	if(request.get){
-    		println "asdasdasda"
 			return [userCommand: new UserCommand()]
     	}
 
     	if (userCommand.hasErrors()) {
-    		println "errroerorororor"
     		return [userCommand: userCommand]
 		}
 
     	if(userService.create(userCommand)){
-    		println "holii"
     		redirect controller: 'login', action: 'auth'
     	}else{
-    		println "chauu"
     		return [userCommand: userCommand]
     	}
     }
 
     def conversations(){
-        println "entra aca"
         def conversations = springSecurityService.currentUser.user.conversations
         [currentUser: springSecurityService.currentUser.user]
         [conversations: conversations]
-    }
-    
-
-    def profile(int id){
-        return [posts: springSecurityService.currentUser.user.posts.sort { 
-            it.timestamp}.reverse()]
     }
 
     def select_avatar() {
@@ -82,12 +78,11 @@ class UserController {
             return
         }
         flash.message = "Avatar (${user.avatarType}, ${user.avatar.size()} bytes) uploaded."
-        redirect(action:'show')
+        redirect(action:'show') 
     }
 
     def avatar_image() {
         def avatarUser = springSecurityService.currentUser.user.id
-        println "sadsaddsa"
         if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
             response.sendError(404)
             return

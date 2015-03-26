@@ -21,7 +21,7 @@ class UserService {
         }
 
         if(!user.save()) {
-            user.errors.each { println "${it}asd" }    
+            user.errors.each { println "${it}" }    
             return false;
         }
 
@@ -30,7 +30,7 @@ class UserService {
         springUser.user = user
         
         if(!springUser.save()) {
-            springUser.errors.each { println "${it}dsa"}    
+            springUser.errors.each { println "${it}"}    
             return false;
         }
 
@@ -55,5 +55,4 @@ class UserService {
         User.findAllByArea(area)
     }
 
-    def checkName 
 }
