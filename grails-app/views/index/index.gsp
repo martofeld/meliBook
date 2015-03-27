@@ -14,7 +14,7 @@
 
 			<div id="posts">
 				<g:each in="${posts}" var="post">
-					<span>${post.content} by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likes.size()}</span> <br></span>
+					<span><a href="${createLink(controller: 'post', action: 'view', id: post.id)}">${post.content}</a> by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likes.size()}</span> <br></span>
 					<input type="button" class="nolike" onclick="addLike(${post.id})" id="likeAdder${post.id}"><br>
 					<!--<button onclick="addLike(${post.id})" id="likeAdder${post.id}">like</button><br>-->
 				</g:each>
@@ -28,7 +28,7 @@
 
 			<div id="areaPosts">
 				<g:each in="${areaPosts}" var="post">
-					<span>${post.content} by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likes.size()}</span> <br></span>
+					<span><a href="${createLink(controller: 'post', action: 'view', id: post.id)}">${post.content}</a> by ${post.user.name} <br> likes: <span id="likeCounter${post.id}">${post.likes.size()}</span> <br></span>
 					<input type="button" class="nolike" onclick="addLike(${post.id})" id="likeAdder${post.id}"><br>
 					<!--<button onclick="addLike(${post.id})" id="likeAdder${post.id}">like</button><br>-->
 				</g:each>
@@ -78,16 +78,21 @@
 
 				for(var id in posts){
 					var post = posts[id];
+					postId = post.id;
+					var href = "/meliBook/post/view/"+postId
+					console.log(href)
 					$("#posts")
-						.append("<span>" + post.content + " by " + post.author + 
+						.append("<span><a href='"+href+"'>" + post.content + "</a> by " + post.author + 
 							"<br> likes:<span id='likeCounter"+post.id+"'>"+post.likes+"</span> <br></span>")
 						.append('<input type="button" class="nolike" onclick="addLike('+post.id+')" id="likeAdder'+post.id+'"><br>');
 				}
 				
 				for(var id in areaPosts){
 					var post = areaPosts[id];
+					postId = post.id;
+					var href = "/meliBook/post/view/"+postId
 					$("#areaPosts")
-						.append("<span>" + post.content + " by " + post.author + 
+						.append("<span><a href='"+href+"'>" + post.content + "</a> by " + post.author + 
 							"<br> likes:<span id='likeCounter"+post.id+"'>"+post.likes+"</span> <br></span>")
 						.append('<input type="button" class="nolike" onclick="addLike('+post.id+')" id="likeAdder'+post.id+'"><br>');
 				}

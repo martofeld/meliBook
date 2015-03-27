@@ -18,13 +18,13 @@
 			</g:each>
 		</div>
 
-		<form>
-			<input type="text" placerholder="comment" name="comment" id="comment">
-			<input type="button" value="Comment" onclick="addComment(${post.id})">
-		</form>
+		<input type="text" placerholder="comment" name="comment" id="comment">
+		<input type="button" value="Comment" onclick="addComment(${post.id})">
 
 		<script type="text/javascript">
 			var postId = $("#id").val();
+			$("#id").remove();
+			
 			function addComment(id){
 				var comment = $("#comment").val()
 				console.log(comment)
@@ -67,13 +67,12 @@
 
 				for(var id in allComments){
 					var comment = allComments[id];
-					$("#comments")
-						.append("<p>" + comment.comment + " by " + comment.commenter + "</p>");
+					$("#comments").append("<p>" + comment.comment + " by " + comment.commenter + "</p>");
 				}
 			}
 
 			$(function(){
-				setInterval(refresh, 5000);
+				setInterval(refresh, 30000);
 			});
 		</script>
 	</body>

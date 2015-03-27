@@ -75,7 +75,6 @@ class PostController {
     }
 
     def refreshComments(){
-        println params
         def post = Post.get(params.id as int)
 
         def commentsAdapted = post.comments.sort { 
