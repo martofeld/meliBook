@@ -3,7 +3,7 @@ package melibook
 import grails.plugin.springsecurity.annotation.*
 import melibook.*
 
-@Secured(["permitAll"])
+@Secured(["ROLE_USER"])
 class UserController {
 	def userService
     def springSecurityService
@@ -26,18 +26,36 @@ class UserController {
 	@Secured(["permitAll"])
     def register(UserCommand userCommand){
     	if(request.get){
-			return [userCommand: new UserCommand(), areas: Area.list()]
-    	}
+            return [userCommand: new UserCommand(), areas: Area.list()]
+        }
 
-    	if (userCommand.hasErrors()) {
-    		return [userCommand: userCommand, areas: Area.list()]
-		}
+        if (userCommand.hasErrors()) {
+            return [userCommand: userCommand, areas: Area.list()]
+        }
 
-    	if(userService.create(userCommand)){
-    		redirect controller: 'login', action: 'auth'
-    	}else{
-    		return [userCommand: userCommand, areas: Area.list()]
-    	}
+        if(userService.create(userCommand)){
+            redirect controller: 'login', action: 'auth'
+        }else{
+            return [userCommand: userCommand, areas: Area.list()]
+        }
+    }
+
+    def edit(UserCommand userCommand){
+        render view: "register"
+
+        if(request.get){
+            return [userCommand: new UserCommand(), areas: Area.list()]
+        }
+
+        if (userCommand.hasErrors()) {
+            return [userCommand: userCommand, areas: Area.list()]
+        }
+
+        if(userService.create(userCommand)){
+            redirect controller: 'login', action: 'auth'
+        }else{
+            return [userCommand: userCommand, areas: Area.list()]
+        }
     }
 
     def conversations(){
