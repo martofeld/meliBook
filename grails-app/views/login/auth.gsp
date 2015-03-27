@@ -8,6 +8,8 @@
 
 	<body>
 		<div class="login">
+			<div class="title">melibook</div>
+			<div class="subtitle">login</div>
 			<div class="box">
 				<form style="border-bottom: 1px dotted rgba(255, 255, 255, 0.79);" action='${postUrl}' method='POST' id='loginForm' autocomplete='off'>
 					<div class="form-group">
