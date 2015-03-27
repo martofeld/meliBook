@@ -74,7 +74,11 @@
 		<nav class="nav-menu">
 			melibook
 			<sec:ifLoggedIn>
-    			<span style="float: right; font-size: 16px; padding: 6px;">Welcome, <sec:username /> <g:link controller='logout' action='' style="color: inherit">Logout</g:link><span>
+    			<span style="float: right; font-size: 16px; padding: 6px;">
+    				<a href="${createLink(controller: 'user', action: 'conversations')}"> mensajes </a>
+    				Welcome, <sec:username /> 
+    				<g:link controller='logout' action='' style="color: inherit">Logout</g:link>
+    			<span>
   			</sec:ifLoggedIn>
 		</nav>
 		<div class="box">
