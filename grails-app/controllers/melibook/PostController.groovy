@@ -12,7 +12,8 @@ class PostController {
 
     def newPost(){
     	println params.content
-    	postService.create(params.content);
+        println params.area
+    	postService.create(params.content, params.area);
     	redirect controller: 'index', action: 'index'
     }
 

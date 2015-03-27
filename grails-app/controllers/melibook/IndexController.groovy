@@ -8,15 +8,18 @@ class IndexController {
 
     def index() {
     	def area = springSecurityService.currentUser.user.area
-    	def c = Post.createCriteria().list() {
+    	/*def areaPosts = Post.createCriteria().list() {
 		    user {
 		    	eq("area", area)
 		    }
-		}
+		}*/
 
-    	return [posts: Post.list().sort { 
+    	return [posts: Area.findByName("all").posts.sort { 
     		it.timestamp
     	}.reverse(),
-    	areaPosts: c]
+    	areaPosts: Area.findByName(area.name).posts.sort { 
+            it.timestamp   
+        }.reverse(),
+        area: area.name]
     }
 }

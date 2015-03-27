@@ -7,7 +7,7 @@
 	<body>
 		<h1>MeliBook</h1>
 		<div id="feed">
-			<form method="post" action="${createLink(controller:'post', action:'newPost')}">
+			<form method="post" action="${createLink(controller:'post', action:'newPost', params: [area: 'all'])}">
 				<input type="text" name="content">
 				<input type="submit" value="submit">
 			</form>
@@ -19,7 +19,7 @@
 			</g:each>
 		</div>
 		<div id="areaFeed">
-			<form method="post" action="${createLink(controller:'post', action:'newPost')}">
+			<form method="post" action="${createLink(controller:'post', action:'newPost', params: [area: area])}">
 				<input type="text" name="content">
 				<input type="submit" value="submit">
 			</form>
