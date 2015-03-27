@@ -41,6 +41,19 @@ class UserService {
         user.delete()
     }
 
+    def edit(userCommand){
+        def springUser = SpringUser.findByUsername(userCommand.mail);
+        def user = springUser.user
+
+        springUser.password = userCommand.password
+        user.name = userCommand.name
+        user.lastName = userCommand.lastName
+        user.area = Area.findByName(userCommand.area)
+
+        springUser.save()
+        user.save()
+    }
+
     def findAll(){
     	User.list()
     }

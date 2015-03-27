@@ -25,46 +25,58 @@ class UserController {
 
 	@Secured(["permitAll"])
     def register(UserCommand userCommand){
+        def areas = Area.list()
+        areas.remove(Area.findByName("all"))
+
     	if(request.get){
-            return [userCommand: new UserCommand(), areas: Area.list()]
+            return [userCommand: new UserCommand(), areas: areas]
         }
 
         if (userCommand.hasErrors()) {
-            return [userCommand: userCommand, areas: Area.list()]
+            return [userCommand: userCommand, areas: areas]
         }
 
         if(userService.create(userCommand)){
             redirect controller: 'login', action: 'auth'
         }else{
-            return [userCommand: userCommand, areas: Area.list()]
+            return [userCommand: userCommand, areas: areas]
         }
     }
 
     def edit(UserCommand userCommand){
-        render view: "register"
+        def currentUser = springSecurityService.currentUser.user
+        def areas = Area.list()
+        areas.remove(Area.findByName("all"))
 
         if(request.get){
-            return [userCommand: new UserCommand(), areas: Area.list()]
+            return [userCommand: new UserCommand(name: currentUser.name,
+                                                 lastName: currentUser.lastName,
+                                                 mail: springSecurityService.currentUser.username,
+                                                 password: springSecurityService.currentUser.password,
+                                                 area: currentUser.area),
+                    areas: areas]
         }
 
         if (userCommand.hasErrors()) {
-            return [userCommand: userCommand, areas: Area.list()]
+            return [userCommand: userCommand, areas: areas]
         }
 
-        if(userService.create(userCommand)){
+        if(userService.edit(userCommand)){
             redirect controller: 'login', action: 'auth'
         }else{
-            return [userCommand: userCommand, areas: Area.list()]
+            return [userCommand: userCommand, areas: areas]
         }
     }
 
     def conversations(){
-        def conversations = springSecurityService.currentUser.user.conversations
-        [conversations: conversations, currentUser: springSecurityService.currentUser.user]
+        def currentUser = springSecurityService.currentUser.user
+        def conversations = currentUser.conversations
+        [conversations: conversations, currentUser: currentUser]
     }
 
     def profile(int id){
-        return [posts: springSecurityService.currentUser.user.posts.sort { 
+        def currentUser = springSecurityService.currentUser.user
+        return [posts: currentUser.posts.sort { 
             it.timestamp}.reverse()]
     }
 
@@ -72,7 +84,8 @@ class UserController {
     }
 
     def upload_avatar() {
-        def user = springSecurityService.currentUser.user // or however you select the current user
+        def currentUser = springSecurityService.currentUser.user
+        def user = currentUser // or however you select the current user
         println user
     // Get the avatar file from the multi-part request
         def f = request.getFile('avatar')
@@ -101,7 +114,8 @@ class UserController {
     }
 
     def avatar_image() {
-        def avatarUser = springSecurityService.currentUser.user
+        def currentUser = springSecurityService.currentUser.user
+        def avatarUser = currentUser
         if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
             response.sendError(404)
             return
@@ -115,7 +129,8 @@ class UserController {
 
 
     def show() {
-        [user: springSecurityService.currentUser.user]
+        def currentUser = springSecurityService.currentUser.user
+        [user: currentUser]
     }
 
     def getUserNameWithId(int id){
