@@ -94,7 +94,7 @@
 			}
 
 			$(function() {
-				setInterval(refreshFeed, 5000);
+				setInterval(refreshFeed, 30000);
 
 				$('.nolike .like').click(function(){
 					$(this).toogleClass('nolike', 'like');

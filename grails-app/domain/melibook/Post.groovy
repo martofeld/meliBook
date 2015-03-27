@@ -7,7 +7,7 @@ class Post {
 	String content
 
 	static belongsTo = [user: User]
-	static hasMany = [likes: Like]
+	static hasMany = [likes: Like, comments: Comment]
 
     static constraints = {
     	timestamp nullable: false

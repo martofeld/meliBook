@@ -66,4 +66,8 @@ class UserService {
         User.findAllByArea(area)
     }
 
+
+    def search(username){
+        def user = SpringUser.findByUsername(username).user;
+    }
 }

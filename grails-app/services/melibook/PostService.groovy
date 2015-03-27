@@ -20,14 +20,8 @@ class PostService {
         post.save()
     }
 
-    def delete(def post){
-    	//User.findById(post.user.id).posts.findByPost(post).delete(flush: true)
-    	//post.delete(flush:true)
-        Post.get(post.id).delete()
-    }
-
     def addLike(def id){
-        def post = Post.findById(id)
+        def post = Post.get(id)
         println post
         def currentUser = springSecurityService.currentUser.user
 
@@ -53,5 +47,17 @@ class PostService {
         else{
             return post.likes.size()
         }
+    }
+
+    def addComment(def content, def id){
+        def post = Post.get(id)
+        def currentUser = springSecurityService.currentUser.user
+        def comment = new Comment(commenter: currentUser, post: post, comment: content, timestamp: new Date())
+
+        post.addToComments(comment)
+        if(!post.save())
+            return false
+        else
+            return currentUser.name + " " + currentUser.lastName
     }
 }
