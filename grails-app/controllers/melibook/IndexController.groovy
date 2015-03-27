@@ -19,7 +19,6 @@ class IndexController {
     	}.reverse(),
     	areaPosts: Area.findByName(area.name).posts.sort { 
             it.timestamp   
-        }.reverse(),
-        area: area.name]
+        }.reverse()]
     }
 }
