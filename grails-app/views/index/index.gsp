@@ -55,13 +55,13 @@
 			function refreshFeed () {
 				console.log("asd");
 				$.ajax({
-					url: "${createLink(controller: 'index', action: 'refresh')}",
+					url: "${createLink(controller: 'post', action: 'refreshPosts')}",
 					method: "GET",
 					dataType: "json",
 					accepts: "application/json",
 					success: function(response){
-							console.log(response);
-							draw(response);
+						console.log(response);
+						draw(response);
 					},
 					error: function(error){
 						console.log(error);

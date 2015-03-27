@@ -1,10 +1,12 @@
 package melibook
 
 import grails.plugin.springsecurity.annotation.*
+import grails.converters.JSON
 
 @Secured(["ROLE_USER"])
 class PostController {
 	def postService
+    def springSecurityService
 
     def index() { 
     	return [posts: Post.list()]
@@ -50,5 +52,38 @@ class PostController {
             render "error"
         else
             render result
+    }
+
+    def refreshPosts() {
+        def area = springSecurityService.currentUser.user.area
+
+        def postsAdapted = Area.findByName("all").posts.sort { 
+            it.timestamp   
+        }.reverse().collect {
+            [content: it.content, author: it.user.name, likes: it.likes.size(), id: it.id]
+        }
+
+        def areaPostsAdapted = Area.findByName(area.name).posts.sort { 
+            it.timestamp   
+        }.reverse().collect {
+            [content: it.content, author: it.user.name, likes: it.likes.size(), id: it.id]
+        }
+
+        def result = [posts: postsAdapted, areaPosts: areaPostsAdapted]
+
+        render result as JSON
+    }
+
+    def refreshComments(){
+        println params
+        def post = Post.get(params.id as int)
+
+        def commentsAdapted = post.comments.sort { 
+            it.timestamp
+        }.collect {
+            [commenter: it.commenter.name + " " + it.commenter.lastName, comment: it.comment]
+        }
+
+        render commentsAdapted as JSON
     }
 }

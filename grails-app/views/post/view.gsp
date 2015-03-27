@@ -4,6 +4,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
+		<input type="hidden" id="id" value="${post.id}">
 		<p>${post.content}</p>
 		<label>Liked by:</label>
 		<g:each in="${likers}" var="liker">
@@ -23,6 +24,7 @@
 		</form>
 
 		<script type="text/javascript">
+			var postId = $("#id").val();
 			function addComment(id){
 				var comment = $("#comment").val()
 				console.log(comment)
@@ -40,6 +42,39 @@
 					}
 				});
 			}
+
+			function refresh () {
+				console.log(postId)
+				$.ajax({
+					url: "${createLink(controller: 'post', action: 'refreshComments', params: [id: postId])}",
+					method: "GET",
+					data: {id: postId},
+					dataType: "json",
+					accepts: "application/json",
+					success: function(response){
+						console.log(response);
+						draw(response);
+					},
+					error: function(error){
+						console.log(error);
+					}
+				});
+			}
+
+			function draw (allComments) {
+				
+				$("#comments").html("");
+
+				for(var id in allComments){
+					var comment = allComments[id];
+					$("#comments")
+						.append("<p>" + comment.comment + " by " + comment.commenter + "</p>");
+				}
+			}
+
+			$(function(){
+				setInterval(refresh, 5000);
+			});
 		</script>
 	</body>
 </html>
