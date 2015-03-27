@@ -7,12 +7,16 @@ import grails.transaction.Transactional
 class PostService {
     def springSecurityService
 
-    def create(def content){
+    def create(def content, def area){
         println content
         Post post = new Post(content: content,
                             timestamp: (new Date()).toTimestamp())
         springSecurityService.currentUser.user.addToPosts(post)
-        spirngSecurityService.currentUser.area.addToPosts(post)
+        
+        if(area)
+            springSecurityService.currentUser.user.area.addToPosts(post)
+        else
+            Area.findByName("all").addToPosts(post)
         post.save()
     }
 

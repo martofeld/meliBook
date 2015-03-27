@@ -2,3 +2,17 @@
 *= require main
 *= require_self
 */
+
+.nolike{
+	background-image: url("nolike-icon.png");
+	height: 64px;
+	width: 64px;
+	background-color: yellow;
+}
+
+.like{
+	background-image: url("like-icon.png");
+	height: 64px;
+	width: 64px;
+	background-color: yellow;
+}

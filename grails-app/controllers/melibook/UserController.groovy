@@ -99,6 +99,10 @@ class UserController {
     def show() {
         [user: springSecurityService.currentUser.user]
     }
+
+    def getUserNameWithId(int id){
+        return User.get(id).name
+    }
 }
 
 class UserCommand {
