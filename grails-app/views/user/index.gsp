@@ -9,7 +9,6 @@
 	<body>
 		<div id="user-info">
 			<span>${ user.name } ${ user.lastName }</span>
-			<span>${ user.birth }</span>
 		</div>
 		<div id="wall">
 			<g:each in="${posts}" var="post">

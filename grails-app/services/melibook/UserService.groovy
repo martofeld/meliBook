@@ -13,12 +13,10 @@ class UserService {
         println user
         def area = Area.findByName(userCommand.area)
         println area
-        if(area != null){
-            area.addToUsers(user)
-        }else{
-            area = new Area(name: userCommand.area).save(flush:true)
-            area.addToUsers(user)
+        if(area == null){
+            return false 
         }
+        area.addToUsers(user)
 
         if(!user.save()) {
             user.errors.each { println "${it}" }    

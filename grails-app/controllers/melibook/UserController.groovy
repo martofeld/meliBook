@@ -106,21 +106,19 @@ class UserCommand {
 	String mail
 	String name
 	String lastName
-	Date birth = new Date().clearTime()
 	String area
 
     
     static constraints = {
 	    name(blank: false)
 	    lastName(blank: false)
-	   	birth(nullable: true)
 	   	mail(blank: false, minSize: 6)
 	   	password(blank: false, minSize: 6)
 	   	area(blank: false)
 	}
 
 	def getUser(){
-		new User(name: name, lastName: lastName, birth: birth)
+		new User(name: name, lastName: lastName)
 	}
 
 	def getSpringUser(){
