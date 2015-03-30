@@ -13,9 +13,7 @@
 
 		<label>Comments</label>
 		<div id="comments">
-			<g:each in="${post.comments.sort{it.timestamp}}" var="comment">
-				<p>${comment.comment} by ${comment.commenter.name} ${comment.commenter.lastName} </p>	
-			</g:each>
+			<Post:comments comments="${post.comments}"/>			
 		</div>
 
 		<input type="text" placerholder="comment" name="comment" id="comment">
@@ -49,26 +47,14 @@
 					url: "${createLink(controller: 'post', action: 'refreshComments', params: [id: postId])}",
 					method: "GET",
 					data: {id: postId},
-					dataType: "json",
-					accepts: "application/json",
 					success: function(response){
 						console.log(response);
-						draw(response);
+						$("#comments").html(response)
 					},
 					error: function(error){
 						console.log(error);
 					}
 				});
-			}
-
-			function draw (allComments) {
-				
-				$("#comments").html("");
-
-				for(var id in allComments){
-					var comment = allComments[id];
-					$("#comments").append("<p>" + comment.comment + " by " + comment.commenter + "</p>");
-				}
 			}
 
 			$(function(){
