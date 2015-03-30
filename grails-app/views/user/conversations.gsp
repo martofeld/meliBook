@@ -92,8 +92,11 @@
 					$('#new-chat').show();
 				});
 
-				//setInterval(refresh, 3000);
+				setInterval(refreshMessages, 15000);
 			});
+			var id = $("#id").val();
+			console.log(id);
+			$("#id").remove();
 
 			function refresh (convId) {
 				console.log(convId)
@@ -103,7 +106,23 @@
 					data: {id: convId},
 					success: function(response){
 						console.log(response);
-						$("#message-list").html(response)
+						id = convId;
+						$("#message-list").html(response);
+					},
+					error: function(error){
+						console.log(error);
+					}
+				});
+			}
+
+			function refreshMessages () {
+				$.ajax({
+					url: "${createLink(controller: 'conversation', action: 'refreshMessages', params: [id: id])}",
+					method: "GET",
+					data: {id: id},
+					success: function(response){
+						console.log(response);
+						$("#message-list").html(response);
 					},
 					error: function(error){
 						console.log(error);

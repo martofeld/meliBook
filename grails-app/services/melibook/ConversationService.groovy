@@ -13,7 +13,11 @@ class ConversationService {
 
     def createConversation(to, content){
     	def sender = springSecurityService.currentUser.user
-    	def receiver = SpringUser.findByUsername(to).user
+    	def receiver = SpringUser.findByUsername(to)
+        if(receiver)
+            receiver = SpringUser.findByUsername(to).user
+        else
+            return "no user found"
 
         def user1 = User.get(sender.id)
         def user2 = User.get(receiver.id)
@@ -30,7 +34,7 @@ class ConversationService {
             conversation.addToUsers(sender)
             conversation.addToUsers(receiver)
         }else{
-            conversation = result
+            conversation = Conversation.get(result.id)
         }
 
         conversation.addToMessages(message)
@@ -43,5 +47,6 @@ class ConversationService {
     	def conversation = Conversation.findById(id).addToMessages(message)
         conversation.lastUpdate = message.timestamp
     	conversation.save()
+        return conversation
     }
 }

@@ -56,20 +56,26 @@ class PostController {
     def refreshPosts() {
         def area = springSecurityService.currentUser.user.area
 
+        println area
+
         def postsAdapted = Area.findByName("all").posts.sort { 
             it.timestamp   
         }.reverse()
 
         def areaPostsAdapted = Area.findByName(area.name).posts.sort { 
-            it.timestamp   
+            it.timestamp
         }.reverse()
+
+        println params
 
         def taglib = new PostTagLib()
 
-        if(!params.area)
-            render taglib.post(posts: postsAdapted)
-        else
+        if(params.area){
             render taglib.post(posts: areaPostsAdapted)
+        }else{
+            render taglib.post(posts: postsAdapted)
+        }
+        return [posts: taglib.post(posts: postsAdapted), areaPost: taglib.post(posts: areaPostsAdapted)]
     }
 
     def refreshComments(){

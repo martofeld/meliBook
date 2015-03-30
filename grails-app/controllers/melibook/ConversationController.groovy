@@ -25,10 +25,9 @@ class ConversationController {
 
     def reply(){
         def showed = conversationService.replyConversation(params.id, params.message, springSecurityService.currentUser.user.id)
-        println showed
         def conversations = Conversation.list()
         def user = springSecurityService.currentUser
-        render controller: 'user', action: 'conversations', model: [conversations: conversations, currentUser: user, conversationToShow: showed]
+        redirect(controller: 'user', action: 'conversations', model: [conversations: conversations, currentUser: user, conversationToShow: showed])
     }
 
     def view(int id){
@@ -36,6 +35,7 @@ class ConversationController {
     }
 
     def refreshMessages(){
+        println params;
         def conversation = Conversation.get(params.id as int)
     
         def taglib = new MessageTagLib()

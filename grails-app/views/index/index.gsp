@@ -74,7 +74,7 @@
 				</div>
 
 				<div id="areaPosts">
-					<Post:post posts="${areaPosts}"/>
+					<Post:areaPost posts="${areaPosts}"/>
 				</div>
 			</div>
 
@@ -107,10 +107,9 @@
 				$.ajax({
 					url: "${createLink(controller: 'post', action: 'refreshPosts')}",
 					method: "GET",
-					data: {area: false},
 					success: function(response){
-						console.log(response);
-						$("#posts").html(response.responseText);
+						console.log(response)
+						$("#posts").html(response);
 					},
 					error: function(error){
 						console.log(error);
@@ -125,7 +124,7 @@
 					data: {area: true},
 					success: function(response){
 						console.log(response);
-						$("areaPosts").html(html);
+						$("#areaPosts").html(response);
 					},
 					error: function(error){
 						console.log(error);

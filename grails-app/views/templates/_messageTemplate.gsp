@@ -1,3 +1,4 @@
+<input type="hidden" id="id" value="${conversation.id}">
 <ul >
 	<g:each in="${messages}" var="message">
 		<g:if test="${message.sender == user}">

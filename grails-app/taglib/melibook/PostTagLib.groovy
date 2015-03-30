@@ -9,6 +9,10 @@ class PostTagLib {
     	out << render(template:"/templates/postTemplate", model: [posts: attrs.posts])
     }
 
+    def areaPost = { attrs ->
+        out << render(template:"/templates/postTemplate", model: [posts: attrs.posts])
+    }
+
     def comments = {attrs -> 
     	def comments = attrs.comments.sort{it.timestamp}
     	out << render(template:"/templates/commentTemplate", model: [comments: comments])
