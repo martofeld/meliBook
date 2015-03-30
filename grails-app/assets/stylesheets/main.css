@@ -1,7 +1,7 @@
 body {
 	font-family: Lato;
 	font-weight: lighter;
-	background-color: rgba(255, 213, 0, 0.83);
+	background-color: rgba(255, 174, 0, 0.83);
 	color: #fff;
 	width: 100%;
 }
@@ -25,7 +25,7 @@ body {
 	height: 58px;
 	width: 525px;
 	display: inline-block;
-	background-color: rgb(255, 228, 89);
+	background-color: rgb(254, 202, 74);
 	margin-top: 25px;
 }
 
@@ -73,7 +73,7 @@ body {
 .btn-success {
 	height: 35px;
 	background-image: none;
-	background-color: rgb(255, 212, 0);
+	background-color: rgb(236, 144, 22);
 	border-left: 0px;
 	border: 0;
 	float: left;
@@ -130,7 +130,7 @@ body {
 	margin-top: 10px;
 	font-size: 18px;
 	text-align: center;
-	background-color: rgba(255, 228, 94, 0.56);
+	background-color: rgba(254, 202, 74, 1);
 	padding: 10px;
 }
 
@@ -193,7 +193,7 @@ body {
 .feed-option {
 	height: 70px;
 	width: 45px;
-	background-color: rgba(226, 199, 61, 0.57);
+	background-color: rgba(197, 176, 70, 0.57);
 	float: left;
 	cursor: pointer;
 }
@@ -205,7 +205,7 @@ body {
 .feed-option-selected {
 	height: 70px;
 	width: 45px;
-	background-color: rgb(254, 225, 74);
+	background-color: rgb(254, 202, 74);
 	float: left;
 }
 
