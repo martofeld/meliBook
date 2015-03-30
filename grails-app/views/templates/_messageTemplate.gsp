@@ -1,5 +1,5 @@
 <g:each in="${messages}" var="message">
-	<g:if test="${message.sender.id == user}">
+	<g:if test="${message.sender == user}">
 		<li class="sender" align="left">
 			${message.message}
 		</li>

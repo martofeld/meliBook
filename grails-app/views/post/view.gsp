@@ -58,7 +58,7 @@
 			}
 
 			$(function(){
-				setInterval(refresh, 3000);
+				setInterval(refresh, 30000);
 			});
 		</script>
 	</body>
