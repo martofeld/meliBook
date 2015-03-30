@@ -10,67 +10,44 @@
 		<div id="conversations-list" class="conversations-list">
 			<div id="new-chat-btn" class="btn btn-success" style="width: 100%; margin-bottom: 15px;">New message</div>
 			<g:each in="${conversations}" var="conversation">
-				<div class="conversation">
-					<a href="${createLink(controller: 'conversation', action: 'view', id: conversation.id)}"> 
-						<div class="user-picture">
-							<g:if test="${conversation.users[0].name == currentUser.name}">
-								<g:if test="${conversation.users[1].avatar}">
-									<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: conversation.users[1].id])});"></div>
-								</g:if>
-								<g:else>
-									<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
-								</g:else>
-								<div class="content">
-									<span class="user-conversation">${conversation.users[1].name}
-									 ${conversation.users[1].lastName} </span>
-									<span class="text">${conversation.messages.last().sender.name}: ${conversation.messages.last().message}</span>
-								</div>
+				<div class="conversation" onclick="refresh(${conversation.id})">
+					<div class="user-picture">
+						<g:if test="${conversation.users[0].name == currentUser.name}">
+							<g:if test="${conversation.users[1].avatar}">
+								<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: conversation.users[1].id])});"></div>
 							</g:if>
 							<g:else>
-								<g:if test="${conversation.users[0].avatar}">
-									<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: conversation.users[0].id])});"></div>
-								</g:if>
-								<g:else>
-									<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
-								</g:else>
-								<div class="content">
-									<span class="user-conversation">${conversation.users[0].name}
-									 ${conversation.users[0].lastName} </span>
-									<span class="text">${conversation.messages.last().sender.name}: ${conversation.messages.last().message}</span>
-								</div>
+								<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
 							</g:else>
-						</div>
-					</a>
+							<div class="content">
+								<span class="user-conversation">${conversation.users[1].name}
+								 ${conversation.users[1].lastName} </span>
+								<span class="text">${conversation.messages.sort { 
+									it.timestamp
+								}.last().sender.name}: ${conversation.messages.sort { 
+									it.timestamp
+								}.last().message}</span>
+							</div>
+						</g:if>
+						<g:else>
+							<g:if test="${conversation.users[0].avatar}">
+								<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: conversation.users[0].id])});"></div>
+							</g:if>
+							<g:else>
+								<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
+							</g:else>
+							<div class="content">
+								<span class="user-conversation">${conversation.users[0].name}
+								 ${conversation.users[0].lastName} </span>
+								<span class="text">${conversation.messages.last().sender.name}: ${conversation.messages.last().message}</span>
+							</div>
+						</g:else>
+					</div>
 				</div>
 			</g:each>
 		</div>
-		<div class="conversation-box">
-			<ul>
-			<g:each in="${conversations.first().messages.sort{it.timestamp}}" var="message">
-				<g:if test="${message.sender.id == user}">
-					<li class="sender" align="left">
-						${message.message}
-					</li>
-				</g:if>
-				<g:else>
-					<li class="receiver" align="right">
-						${message.message} 
-					</li>
-				</g:else>
-			</g:each>
-		</ul>
-		<div id="conversation-form" align="center">
-			<form action="${createLink(controller: 'conversation', action: 'reply', params: [id: conversations.last().id])}" method="POST">
-				<div class="form-group">
-					<label for='message'>Message</label>
-					<input class="form-control" type="text" name="message">
-				</div>
-				<div class="form-group">
-					<input type="submit" class="btn btn-default" value="Send" name="send">
-				</div>
-
-			</form>
-		</div>
+		<div class="conversation-box" id="message-list">
+			<Messages:messages conversation="${conversationToShow}" user="${currentUser}"/>
 		</div>
 		
 
@@ -107,7 +84,25 @@
 				$('#new-chat-btn').click(function() {
 					$('#new-chat').show();
 				});
+
+				//setInterval(refresh, 3000);
 			});
+
+			function refresh (convId) {
+				console.log(convId)
+				$.ajax({
+					url: "${createLink(controller: 'conversation', action: 'refreshMessages', params: [id: convId])}",
+					method: "GET",
+					data: {id: convId},
+					success: function(response){
+						console.log(response);
+						$("#message-list").html(response)
+					},
+					error: function(error){
+						console.log(error);
+					}
+				});
+			}
 		</script>
 	</body>
 </html>

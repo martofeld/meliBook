@@ -18,12 +18,28 @@ class ConversationController {
     	redirect controller: 'user', action: 'conversations'
     }
 
-    def reply(){
+    /*def reply(){
     	conversationService.replyConversation(params.id, params.message, springSecurityService.currentUser.user.id)
     	redirect controller: 'conversation', action: 'view', id: params.id
+    }*/
+
+    def reply(){
+        def showed = conversationService.replyConversation(params.id, params.message, springSecurityService.currentUser.user.id)
+        println showed
+        def conversations = Conversation.list()
+        def user = springSecurityService.currentUser
+        render controller: 'user', action: 'conversations', model: [conversations: conversations, currentUser: user, conversationToShow: showed]
     }
 
     def view(int id){
     	[conversation: Conversation.findById(id), user: springSecurityService.currentUser.user.id]
+    }
+
+    def refreshMessages(){
+        def conversation = Conversation.get(params.id as int)
+    
+        def taglib = new MessageTagLib()
+    
+        render taglib.messages(conversation: conversation, user: springSecurityService.currentUser.user)
     }
 }

@@ -44,6 +44,4 @@ class ConversationService {
         conversation.lastUpdate = message.timestamp
     	conversation.save()
     }
-
-
 }
