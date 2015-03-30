@@ -12,8 +12,6 @@ class UserController {
     private static final okcontents = ['image/png', 'image/jpeg', 'image/gif']
 
     def index(String username) {
-        if (username == null)
-            username = params.username
         def user = SpringUser.findByUsername(username)?.user
         [posts: user.posts.sort{it.timestamp}.reverse(), user: user]
     }
