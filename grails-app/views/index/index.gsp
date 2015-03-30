@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+}<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
@@ -56,29 +56,8 @@
 						</div>
 					</form>
 				</div>
-
 				<div id="posts">
-					<g:each in="${posts}" var="post">
-							<div class="post">
-								<div class="user-picture">
-									<g:if test="${post.user.avatar}">
-										<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: post.user.id])});"></div>
-									</g:if>
-									<g:else>
-										<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
-									</g:else>
-								</div>
-								<div class="content">
-									<span class="user-post">${post.user.name}</span>
-									<span class="text">${post.content}</span>
-								</div>
-								<div class="info-post">
-									<div class="likes">
-										<div id="likeCounter${post.id}" onclick="addLike(${post.id})" class="no-like" id="likeAdder${post.id}">${post.likes.size()}</div>
-									</div>
-								</div>
-							</div>
-					</g:each>
+					<Post:post posts="${posts}"/>
 				</div>
 			</div>
 
@@ -95,29 +74,7 @@
 				</div>
 
 				<div id="areaPosts">
-					<g:each in="${areaPosts}" var="postArea">
-						
-						<div class="post">
-							<div class="user-picture">
-								<g:if test="${postArea.user.avatar}">
-									<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: postArea.user.id])});"></div>
-								</g:if>
-								<g:else>
-									<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
-								</g:else>
-							</div>
-							<div class="content">
-								<span class="user-post">${postArea.user.name}</span>
-								<span class="text">${postArea.content}</span>
-							</div>
-							<div class="info-post">
-								<div class="likes">
-									<div id="likeCounter${postArea.id}" onclick="addLike(${postArea.id})" class="no-like" id="likeAdder${postArea.id}">${postArea.likes.size()}</div>
-								</div>
-							</div>
-						</div>
-
-					</g:each>
+					<Post:post posts="${areaPosts}"/>
 				</div>
 			</div>
 
@@ -147,15 +104,13 @@
 			}
 
 			function refreshFeed () {
-				console.log("asd");
 				$.ajax({
 					url: "${createLink(controller: 'post', action: 'refreshPosts')}",
 					method: "GET",
-					dataType: "json",
-					accepts: "application/json",
+					data: {area: false},
 					success: function(response){
 						console.log(response);
-						draw(response);
+						$("#posts").html(response.responseText);
 					},
 					error: function(error){
 						console.log(error);
@@ -163,37 +118,24 @@
 				});
 			}
 
-			function draw (allPosts) {
-				var posts = allPosts.posts;
-				var areaPosts = allPosts.areaPosts;
-				
-				$("#posts").html("");
-				$("#areaPosts").html("");
-
-				for(var id in posts){
-					var post = posts[id];
-					postId = post.id;
-					var href = "/meliBook/post/view/"+postId
-					console.log(href)
-					$("#posts")
-						.append("<span><a href='"+href+"'>" + post.content + "</a> by " + post.author + 
-							"<br> likes:<span id='likeCounter"+post.id+"'>"+post.likes+"</span> <br></span>")
-						.append('<input type="button" class="nolike" onclick="addLike('+post.id+')" id="likeAdder'+post.id+'"><br>');
-				}
-				
-				for(var id in areaPosts){
-					var post = areaPosts[id];
-					postId = post.id;
-					var href = "/meliBook/post/view/"+postId
-					$("#areaPosts")
-						.append("<span><a href='"+href+"'>" + post.content + "</a> by " + post.author + 
-							"<br> likes:<span id='likeCounter"+post.id+"'>"+post.likes+"</span> <br></span>")
-						.append('<input type="button" class="nolike" onclick="addLike('+post.id+')" id="likeAdder'+post.id+'"><br>');
-				}
+			function refreshAreaFeed () {
+				$.ajax({
+					url: "${createLink(controller: 'post', action: 'refreshPosts')}",
+					method: "GET",
+					data: {area: true},
+					success: function(response){
+						console.log(response);
+						$("areaPosts").html(html);
+					},
+					error: function(error){
+						console.log(error);
+					}
+				});
 			}
 
 			$(function() {
-				//setInterval(refreshFeed, 3000);
+				setInterval(refreshFeed, 30000);
+				setInterval(refreshAreaFeed, 30000);
 
 				$('.nolike .like').click(function(){
 					$(this).toogleClass('nolike', 'like');
@@ -215,33 +157,4 @@
 			});
 		</script>
 	</body> 
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-
-
-
-
-
-	</body>
 </html>

@@ -1,4 +1,6 @@
 import melibook.*
+import melibook.Role
+import melibook.Area
 
 class BootStrap {
 

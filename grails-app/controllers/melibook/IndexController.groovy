@@ -15,5 +15,6 @@ class IndexController {
             it.timestamp
         }.reverse(), user: springSecurityService.currentUser.user, username: springSecurityService.currentUser.username,
          users: User.list()[User.list().size()-1..User.list().size()-3]]
+
     }
 }

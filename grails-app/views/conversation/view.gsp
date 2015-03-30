@@ -6,19 +6,9 @@
 	</head>
 
 	<body>
-		<ul>
-			<g:each in="${conversation.messages.sort{it.timestamp}}" var="message">
-				<g:if test="${message.sender.id == user}">
-					<li class="sender" align="left">
-						${message.message}
-					</li>
-				</g:if>
-				<g:else>
-					<li class="receiver" align="right">
-						${message.message} 
-					</li>
-				</g:else>
-			</g:each>
+		<input type="hidden" id="id" value="${conversation.id}"/>
+		<ul id="messages-list">
+			<Messages:messages conversation="${conversation}" user="${user}"/>
 		</ul>
 		<div id="conversation-form" align="center">
 			<form action="${createLink(controller: 'conversation', action: 'reply', params: [id: conversation.id])}" method="POST">
@@ -32,6 +22,32 @@
 
 			</form>
 		</div>
-		
+
+		<script type="text/javascript">
+			var convId;
+
+			function refresh () {
+				console.log(convId)
+				$.ajax({
+					url: "${createLink(controller: 'conversation', action: 'refreshMessages', params: [id: convId])}",
+					method: "GET",
+					data: {id: convId},
+					success: function(response){
+						console.log(response);
+						$("#messages-list").html(response)
+					},
+					error: function(error){
+						console.log(error);
+					}
+				});
+			}
+
+			$(function(){
+				convId = $("#id").val();
+				console.log($("#id"));
+				setInterval(refresh, 3000);
+			});
+		</script>
+
 	</body>
 </html>

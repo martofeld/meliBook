@@ -24,6 +24,14 @@ class ConversationController {
     }
 
     def view(int id){
-    	[conversation: Conversation.findById(id), user: springSecurityService.currentUser.user.id]
+    	[conversation: Conversation.findById(id), user: springSecurityService.currentUser.user]
+    }
+
+    def refreshMessages(){
+        def conversation = Conversation.get(params.id as int)
+    
+        def taglib = new MessageTagLib()
+
+        render taglib.messages(conversation: conversation, user: springSecurityService.currentUser.user)
     }
 }
