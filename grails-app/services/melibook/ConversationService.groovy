@@ -1,6 +1,7 @@
 package melibook
 
 import grails.transaction.Transactional
+import java.text.SimpleDateFormat
 
 @Transactional
 class ConversationService {
@@ -13,19 +14,26 @@ class ConversationService {
     def createConversation(to, content){
     	def sender = springSecurityService.currentUser.user
     	def receiver = SpringUser.findByUsername(to).user
-        println Conversation.withCriteria{
-            users{
-                'in'("id", receiver.id)
-                and {
-                    'in'("id", sender.id)
+        //def c = Conversation.findByUsers(sender, receiver)?:new Conversation()
+        //no encuentra el atributo users en la clase conversations entonces crea dos conversaciones, queremos hacer que
+        //si ya existe la conv no cree una nueva. Como hacemos con el criteria builder?
+        println Conversation.withCriteria {
+            
+                for(user in Conversation.users) {
+                    eq("user", receiver)
                 }
+
+        }
+        /*println Conversation.withCriteria{
+            users{
+                eq()
             }
             /*and {
                 users{
                     'in'(receiver)
                 }   
-            }*/
         }
+            }*/
 
 
         def message = new Message(timestamp: (new Date()).toTimestamp(), message: content, sender: sender)

@@ -58,19 +58,24 @@ class PostController {
 
         def postsAdapted = Area.findByName("all").posts.sort { 
             it.timestamp   
-        }.reverse().collect {
-            [content: it.content, author: it.user.name, likes: it.likes.size(), id: it.id]
-        }
+        }.reverse()
 
         def areaPostsAdapted = Area.findByName(area.name).posts.sort { 
             it.timestamp   
-        }.reverse().collect {
-            [content: it.content, author: it.user.name, likes: it.likes.size(), id: it.id]
-        }
+        }.reverse()
 
-        def result = [posts: postsAdapted, areaPosts: areaPostsAdapted]
+        //def result = [posts: postsAdapted, areaPosts: areaPostsAdapted]
 
-        render result as JSON
+        println postsAdapted
+        println areaPostsAdapted
+        println params.area
+
+        def taglib = new PostTagLib()
+
+        if(!params.area)
+            render taglib.post(posts: postsAdapted)
+        else
+            render taglib.post(posts: areaPostsAdapted)
     }
 
     def refreshComments(){
