@@ -10,6 +10,6 @@ class MessageTagLib {
     def messages = { attrs ->
     	def messages = attrs.conversation.messages.sort{it.timestamp}
     	def user = attrs.user
-    	out << render(template:"/templates/messageTemplate", model: [messages: messages, user: user])
+    	out << render(template:"/templates/messageTemplate", model: [messages: messages, user: user, conversation: attrs.conversation])
     }
 }

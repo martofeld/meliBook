@@ -24,29 +24,7 @@
 		</div>
 
 		<script type="text/javascript">
-			var convId;
-
-			function refresh () {
-				console.log(convId)
-				$.ajax({
-					url: "${createLink(controller: 'conversation', action: 'refreshMessages', params: [id: convId])}",
-					method: "GET",
-					data: {id: convId},
-					success: function(response){
-						console.log(response);
-						$("#messages-list").html(response)
-					},
-					error: function(error){
-						console.log(error);
-					}
-				});
-			}
-
-			$(function(){
-				convId = $("#id").val();
-				console.log($("#id"));
-				setInterval(refresh, 3000);
-			});
+			
 		</script>
 
 	</body>
