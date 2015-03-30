@@ -15,21 +15,24 @@
 	</head>
 	<body>
 		<div class="header">
-			<div class="title">
-				melibook
-			</div>
-			<nav class="menu">
-				<div id="search-input" class="input-group">
-					<input type="text" class="form-control" placeholder="Search" />
-					<div class="input-group-btn">
-						<button type="submit" class="btn btn-success">
-							<span class="glyphicon glyphicon-search"></span>
-						</button>
-					</div>
+			<a href="${createLink(controller: 'index', action: 'index')}">
+				<div class="title">
+					melibook
 				</div>
+			</a>
+			<nav class="menu">
+				<form action="${createLink(controller: 'search', action: 'search')}">
+					<div id="search-input" class="input-group">
+						<input type="text" name="query" class="form-control" placeholder="Search" />
+						<div class="input-group-btn">
+							<button type="submit" class="btn btn-success">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</div>
+					</div>
+				</form>
 				<div id="menu-options">
-					<div id="notifications" class="menu-icon notifications"></div>
-					<div id="messages" class="menu-icon messages"></div>
+					<a href="${createLink(controller: 'user', action: 'conversations')}"><div id="messages" class="menu-icon messages"></div></a>
 					<g:link controller='logout' action='' style="color: inherit"><div id="settings" class="menu-icon settings"></div></g:link>
 				</div>
 			</nav>

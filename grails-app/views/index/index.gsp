@@ -5,12 +5,14 @@
 	</head>
 	<body>
 		<div id="profile" class="profile">
-			<g:if test="${user.avatar}">
-				<div class="profile-pic" style="background-image: url(${createLink(controller:'user', action:'avatar_image', params: [user: user])});"></div>
-			</g:if>
-			<g:else>
-				<div class="profile-pic glyphicon glyphicon-user" style="padding: 25px; font-size: 60px; display: block;"></div>
-			</g:else>
+			<a href="${createLink(controller: 'user', action: 'index', params: [username: username])}">
+				<g:if test="${user.avatar}">
+					<div class="profile-pic" style="background-image: url(${createLink(controller:'user', action:'avatar_image', params: [user: user])});"></div>
+				</g:if>
+				<g:else>
+					<div class="profile-pic glyphicon glyphicon-user" style="padding: 25px; font-size: 60px; display: block;"></div>
+				</g:else>
+			</a>
 			<div class="greetings">Hi ${user.name}!</div>
 			<div class="info-notifications">
 				You have 0 new messages

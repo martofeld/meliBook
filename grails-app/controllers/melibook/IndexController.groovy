@@ -13,6 +13,7 @@ class IndexController {
         }.reverse(),
         areaPosts: Area.findByName(area.name).posts.sort { 
             it.timestamp
-        }.reverse(), user: springSecurityService.currentUser.user, users: User.list()[User.list().size()-1..User.list().size()-3]]
+        }.reverse(), user: springSecurityService.currentUser.user, username: springSecurityService.currentUser.username,
+         users: User.list()[User.list().size()-1..User.list().size()-3]]
     }
 }
