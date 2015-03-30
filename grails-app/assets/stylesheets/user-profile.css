@@ -1,0 +1,13 @@
+.info-profile {
+	margin-top: 10px;
+	font-size: 18px;
+	text-align: center;
+	background-color: rgba(255, 228, 94, 0.56);
+	padding: 10px;
+}
+
+.info {
+	font-size: 14px;
+	text-align: center;
+	padding: 5px;
+}

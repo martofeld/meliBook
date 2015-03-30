@@ -8,7 +8,6 @@ class PostService {
     def springSecurityService
 
     def create(def content, def area){
-        println content
         Post post = new Post(content: content,
                             timestamp: (new Date()).toTimestamp())
         springSecurityService.currentUser.user.addToPosts(post)

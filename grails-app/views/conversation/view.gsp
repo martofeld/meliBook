@@ -8,7 +8,7 @@
 	<body>
 		<ul>
 			<g:each in="${conversation.messages.sort{it.timestamp}}" var="message">
-				<g:if test="${message.sender == conversation.users[0]}">
+				<g:if test="${message.sender.id == user}">
 					<li class="sender" align="left">
 						${message.message}
 					</li>
@@ -21,7 +21,7 @@
 			</g:each>
 		</ul>
 		<div id="conversation-form" align="center">
-			<form action="${createLink(controller: 'conversation', action: 'reply', id: conversation.id)}" method="POST">
+			<form action="${createLink(controller: 'conversation', action: 'reply', params: [id: conversation.id])}" method="POST">
 				<div class="form-group">
 					<label for='message'>Message</label>
 					<input class="form-control" type="text" name="message">

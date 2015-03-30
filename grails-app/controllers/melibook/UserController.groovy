@@ -12,9 +12,7 @@ class UserController {
     private static final okcontents = ['image/png', 'image/jpeg', 'image/gif']
 
     def index(String username) {
-        println username
         def user = SpringUser.findByUsername(username)?.user
-        println user
         [posts: user.posts.sort{it.timestamp}.reverse(), user: user]
     }
 
@@ -70,7 +68,7 @@ class UserController {
 
     def conversations(){
         def currentUser = springSecurityService.currentUser.user
-        def conversations = currentUser.conversations
+        def conversations = currentUser.conversations.sort{it.lastUpdate}.reverse()
         [conversations: conversations, currentUser: currentUser]
     }
 
@@ -86,10 +84,9 @@ class UserController {
     def upload_avatar() {
         def currentUser = springSecurityService.currentUser.user
         def user = currentUser // or however you select the current user
-        println user
+        
     // Get the avatar file from the multi-part request
         def f = request.getFile('avatar')
-        println f.bytes
         // List of OK mime-types
         if (!okcontents.contains(f.getContentType())) {
             flash.message = "Avatar must be one of: ${okcontents}"
@@ -100,21 +97,34 @@ class UserController {
         // Save the image and mime type
         user.avatar = f.bytes
         user.avatarType = f.contentType
-        println user.avatar
         println "File uploaded: $user.avatarType"
 
         // Validation works, will check if the image is too big
         if (!user.save(flush: true)) {
-            println "aa"
             render(view:'select_avatar', model:[user:user])
             return
         }
         println "Avatar (${user.avatarType}, ${user.avatar.size()} bytes) uploaded."
-        redirect(action:'show')
+        redirect(controller: 'index', action:'index')
     }
 
     def avatar_image() {
         def currentUser = springSecurityService.currentUser.user
+        def avatarUser = currentUser
+        if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
+            response.sendError(404)
+            return
+        }
+        response.contentType = avatarUser.avatarType
+        response.contentLength = avatarUser.avatar.size()
+        OutputStream out = response.outputStream
+        out.write(avatarUser.avatar)
+        out.close()
+    }
+
+    def avatar_image_another() {
+        def user = getUserNameWithId(params.int('user'))
+        def currentUser = user
         def avatarUser = currentUser
         if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
             response.sendError(404)
@@ -134,7 +144,7 @@ class UserController {
     }
 
     def getUserNameWithId(int id){
-        return User.get(id).name
+        return User.get(id)
     }
 }
 

@@ -24,7 +24,6 @@ class PostController {
     }
 
     def newPost(){
-    	println params.content
         println params
 
         if(params.area) //params.area is a boolean that tells if the post is from an area or not

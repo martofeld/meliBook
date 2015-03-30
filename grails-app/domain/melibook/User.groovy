@@ -16,7 +16,7 @@ class User {
     	name nullable: false
     	lastName nullable: false
     	profilePicture nullable: true
-    	avatar(nullable:true, maxSize: 16384 /* 16K */)
+    	avatar(nullable:true, maxSize: 200000 /* 16K */)
     	avatarType(nullable:true)
     }
 }

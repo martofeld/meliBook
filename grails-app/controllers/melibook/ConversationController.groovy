@@ -5,22 +5,25 @@ import grails.plugin.springsecurity.annotation.*
 class ConversationController {
 
 	def conversationService
-    def index() { }
+    def springSecurityService
+
+    def index() {
+
+    }
 
     def newConversation(){
-    	print "holasdfa"
     	println params.to
     	println params.message
     	conversationService.createConversation(params.to, params.message)
     	redirect controller: 'user', action: 'conversations'
     }
 
-    def reply(int id){
-    	conversationService.replyConversation(id, params.message)
-    	redirect controller: 'conversation', action: 'view', id: id
+    def reply(){
+    	conversationService.replyConversation(params.id, params.message, springSecurityService.currentUser.user.id)
+    	redirect controller: 'conversation', action: 'view', id: params.id
     }
 
     def view(int id){
-    	return [conversation: Conversation.findById(id)]
+    	[conversation: Conversation.findById(id), user: springSecurityService.currentUser.user.id]
     }
 }
