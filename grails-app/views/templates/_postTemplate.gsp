@@ -10,7 +10,7 @@
 		</div>
 		<div class="content">
 			<span class="user-post">${post.user.name}</span>
-			<span class="text">${post.content}</span>
+			<a href="${createLink(controller: 'post', action: 'view', id: post.id)}"><span class="text">${post.content}</span></a>
 		</div>
 		<div class="info-post">
 			<div class="likes">

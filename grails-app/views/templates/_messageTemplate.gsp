@@ -1,4 +1,4 @@
-<g:each in="${conversation.messages.sort{it.timestamp}}" var="message">
+<g:each in="${messages}" var="message">
 	<g:if test="${message.sender.id == user}">
 		<li class="sender" align="left">
 			${message.message}

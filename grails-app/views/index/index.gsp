@@ -132,8 +132,8 @@
 			}
 
 			$(function() {
-				setInterval(refreshFeed, 3000);
-				setInterval(refreshAreaFeed, 3000);
+				setInterval(refreshFeed, 30000);
+				setInterval(refreshAreaFeed, 30000);
 
 				$('.nolike .like').click(function(){
 					$(this).toogleClass('nolike', 'like');

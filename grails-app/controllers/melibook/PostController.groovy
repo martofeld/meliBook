@@ -5,11 +5,11 @@ import grails.converters.JSON
 
 @Secured(["ROLE_USER"])
 class PostController {
-	def postService
+    def postService
     def springSecurityService
 
     def index() { 
-    	return [posts: Post.list()]
+        return [posts: Post.list()]
     }
 
     def view(int id){
@@ -27,22 +27,22 @@ class PostController {
         println params
 
         if(params.area) //params.area is a boolean that tells if the post is from an area or not
-    	   postService.create(params.content, true);
+           postService.create(params.content, true);
         else
            postService.create(params.content, false);
-    	redirect controller: 'index', action: 'index'
+        redirect controller: 'index', action: 'index'
     }
 
     def addLike(int id){
-    	def response = postService.addLike(id);
-    	println response
-    	if(response == false){
+        def response = postService.addLike(id);
+        println response
+        if(response == false){
             render "error"
-    		return false
-    	}else{
-    		render response
-    		return
-    	}
+            return false
+        }else{
+            render response
+            return
+        }
     }
 
     def addComment(){
@@ -64,12 +64,6 @@ class PostController {
             it.timestamp   
         }.reverse()
 
-        //def result = [posts: postsAdapted, areaPosts: areaPostsAdapted]
-
-        println postsAdapted
-        println areaPostsAdapted
-        println params.area
-
         def taglib = new PostTagLib()
 
         if(!params.area)
@@ -83,10 +77,10 @@ class PostController {
 
         def commentsAdapted = post.comments.sort { 
             it.timestamp
-        }.collect {
-            [commenter: it.commenter.name + " " + it.commenter.lastName, comment: it.comment]
         }
+    
+        def taglib = new PostTagLib()
 
-        render commentsAdapted as JSON
+        render taglib.comments(comments: commentsAdapted)
     }
 }
