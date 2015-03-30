@@ -68,8 +68,12 @@ class UserController {
 
     def conversations(){
         def currentUser = springSecurityService.currentUser.user
-        def conversations = currentUser.conversations.sort{it.lastUpdate}.reverse()
-        [conversations: conversations, currentUser: currentUser, conversationToShow: conversations.first()]
+        if(currentUser.conversations){
+            def sortedConversations = currentUser.conversations.sort{it.lastUpdate}.reverse()
+            return [conversations: sortedConversations, currentUser: currentUser, conversationToShow: sortedConversations.first()]
+        }else{
+            return [conversations: [], currentUser: currentUser, conversationToShow: null]
+        }
     }
 
     def profile(int id){

@@ -9,42 +9,44 @@
 	<body>
 		<div id="conversations-list" class="conversations-list">
 			<div id="new-chat-btn" class="btn btn-success" style="width: 100%; margin-bottom: 15px;">New message</div>
-			<g:each in="${conversations}" var="conversation">
-				<div class="conversation" onclick="refresh(${conversation.id})">
-					<div class="user-picture">
-						<g:if test="${conversation.users[0].name == currentUser.name}">
-							<g:if test="${conversation.users[1].avatar}">
-								<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: conversation.users[1].id])});"></div>
+			<g:if test="${conversations != []}">
+				<g:each in="${conversations}" var="conversation">
+					<div class="conversation" onclick="refresh(${conversation.id})">
+						<div class="user-picture">
+							<g:if test="${conversation.users[0].name == currentUser.name}">
+								<g:if test="${conversation.users[1].avatar}">
+									<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: conversation.users[1].id])});"></div>
+								</g:if>
+								<g:else>
+									<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
+								</g:else>
+								<div class="content">
+									<span class="user-conversation">${conversation.users[1].name}
+									 ${conversation.users[1].lastName} </span>
+									<span class="text">${conversation.messages.sort { 
+										it.timestamp
+									}.last().sender.name}: ${conversation.messages.sort { 
+										it.timestamp
+									}.last().message}</span>
+								</div>
 							</g:if>
 							<g:else>
-								<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
+								<g:if test="${conversation.users[0].avatar}">
+									<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: conversation.users[0].id])});"></div>
+								</g:if>
+								<g:else>
+									<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
+								</g:else>
+								<div class="content">
+									<span class="user-conversation">${conversation.users[0].name}
+									 ${conversation.users[0].lastName} </span>
+									<span class="text">${conversation.messages.last().sender.name}: ${conversation.messages.last().message}</span>
+								</div>
 							</g:else>
-							<div class="content">
-								<span class="user-conversation">${conversation.users[1].name}
-								 ${conversation.users[1].lastName} </span>
-								<span class="text">${conversation.messages.sort { 
-									it.timestamp
-								}.last().sender.name}: ${conversation.messages.sort { 
-									it.timestamp
-								}.last().message}</span>
-							</div>
-						</g:if>
-						<g:else>
-							<g:if test="${conversation.users[0].avatar}">
-								<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: conversation.users[0].id])});"></div>
-							</g:if>
-							<g:else>
-								<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
-							</g:else>
-							<div class="content">
-								<span class="user-conversation">${conversation.users[0].name}
-								 ${conversation.users[0].lastName} </span>
-								<span class="text">${conversation.messages.last().sender.name}: ${conversation.messages.last().message}</span>
-							</div>
-						</g:else>
+						</div>
 					</div>
-				</div>
-			</g:each>
+				</g:each>
+			</g:if>
 		</div>
 		<div class="conversation-box" id="message-list">
 			<Messages:messages conversation="${conversationToShow}" user="${currentUser}"/>
