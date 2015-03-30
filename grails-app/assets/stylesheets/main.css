@@ -346,3 +346,14 @@ body {
 	line-height: 18px;
 	color: rgba(255, 212, 0, 0.54);
 }
+
+a {
+	text-decoration:none;
+	color: white;
+}
+a:hover{
+	color: white;
+}
+a:visited{
+	color:white;
+}
