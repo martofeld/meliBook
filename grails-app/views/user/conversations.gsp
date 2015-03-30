@@ -49,7 +49,12 @@
 			</g:if>
 		</div>
 		<div class="conversation-box" id="message-list">
-			<Messages:messages conversation="${conversationToShow}" user="${currentUser}"/>
+			<g:if test="${conversationToShow != null}">
+				<Messages:messages conversation="${conversationToShow}" user="${currentUser}"/>
+			</g:if>
+			<g:else>
+				<p>No tiene mensajes aun</p>
+			</g:else>
 		</div>
 		
 
