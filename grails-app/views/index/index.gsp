@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<asset:javascript src="index.js"/>
+		<asset:javascript src="userIndex.js"/>
 	</head>
 	<body>
 		<div id="profile" class="profile">
@@ -73,9 +73,9 @@
 
 		<script type="text/javascript">
 			var links = {
-				like: ${createLink(controller: "post", action: "addLike")},
-				refreshFeed: ${createLink(controller: 'post', action: 'refreshPosts')},
-				refreshAreaFeed: ${createLink(controller: 'post', action: 'refreshPosts')}
+				like: "${createLink(controller: 'post', action: 'addLike')}",
+				refreshFeed: "${createLink(controller: 'post', action: 'refreshPosts')}",
+				refreshAreaFeed: "${createLink(controller: 'post', action: 'refreshPosts')}"
 			}
 		</script>
 	</body> 

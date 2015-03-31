@@ -52,7 +52,7 @@
 			</form>
 		</div>
 		<script>
-			var links = {refresh: ${createLink(controller: 'conversation', action: 'refreshMessages')}};
+			var links = {refresh: "${createLink(controller: 'conversation', action: 'refreshMessages')}"};
 		</script>
 	</body>
 </html>

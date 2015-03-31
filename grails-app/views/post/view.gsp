@@ -22,8 +22,8 @@
 
 		<script type="text/javascript">
 			var links = {
-				addComment: ${createLink(controller: 'post', action: 'addComment')},
-				refresh: ${createLink(controller: 'post', action: 'refreshComments')}
+				addComment: "${createLink(controller: 'post', action: 'addComment')}",
+				refresh: "${createLink(controller: 'post', action: 'refreshComments')}"
 			};
 		</script>
 	</body>

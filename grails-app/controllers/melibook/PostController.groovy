@@ -54,10 +54,11 @@ class PostController {
 
         if(params.area){
             render taglib.post(posts: areaPostsAdapted)
+            return
         }else{
             render taglib.post(posts: postsAdapted)
+            return
         }
-        return [posts: taglib.post(posts: postsAdapted), areaPost: taglib.post(posts: areaPostsAdapted)]
     }
 
     def refreshComments(){
