@@ -9,9 +9,9 @@
 			<g:each in="${springUsers}" var="sUser">
 				<div class="user-picture" style="margin: auto;width: 1%;height: 100px;">
 					<User:avatar user="${sUser.user}" cssClass="photo"/>
-					<p><a href="${createLink(controller: 'user', action:'index', params:[username: sUser.username])}">
+					<a href="${createLink(controller: 'user', action:'index', params:[username: sUser.username])}">
 						${sUser.user.name} ${sUser.user.lastName}
-					</a></p>
+					</a>
 					<p>${sUser.user.area.name}</p>
 				</div>
 			</g:each>
