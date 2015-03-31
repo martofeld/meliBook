@@ -10,7 +10,6 @@ class SearchController {
 
     def search(){
     	def users = User.findAllByNameLike("%" + params.query + "%")
-    	println users
     	def springUsers = []
     	if (users == null)
     		return [springUsers: springUsers]

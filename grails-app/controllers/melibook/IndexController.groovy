@@ -9,13 +9,11 @@ class IndexController {
     def index() {
     	def area = springSecurityService.currentUser.user.area
         def lastUsers = getLastUsers();
-        def result = [posts: Area.findByName("all").posts.sort { 
-            it.timestamp
-        }.reverse(),
-        areaPosts: Area.findByName(area.name).posts.sort { 
-            it.timestamp
-        }.reverse(), user: springSecurityService.currentUser.user, username: springSecurityService.currentUser.username,
-         users: lastUsers]
+        def result= [posts: Area.getSortedPosts("all"),
+        areaPosts: Area.getSortedPosts(area.name),
+        user: springSecurityService.currentUser.user,
+        username: springSecurityService.currentUser.username,
+        users: lastUsers]
 
     }
 

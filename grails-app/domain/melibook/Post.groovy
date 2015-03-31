@@ -13,4 +13,10 @@ class Post {
     	timestamp nullable: false
     	content nullable: false
     }
+
+    static getSortedPosts(){
+    	Post.list().sort { 
+    		it.timestamp
+    	}.reverse()
+    }
 }

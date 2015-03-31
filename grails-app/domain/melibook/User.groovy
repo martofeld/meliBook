@@ -8,6 +8,7 @@ class User {
 	String profilePicture
 	byte[] avatar
   	String avatarType
+    Date created = new Date()
 	
 	static belongsTo = [area: Area]
 	static hasMany = [posts: Post, conversations: Conversation]
@@ -18,5 +19,9 @@ class User {
     	profilePicture nullable: true
     	avatar(nullable:true, maxSize: 200000 /* 16K */)
     	avatarType(nullable:true)
+    }
+
+    static getLastUsers(){
+        User.findAll([max: 3, order: "asc"])
     }
 }

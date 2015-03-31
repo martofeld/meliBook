@@ -12,16 +12,9 @@ class ConversationController {
     }
 
     def newConversation(){
-    	println params.to
-    	println params.message
     	conversationService.createConversation(params.to, params.message)
     	redirect controller: 'user', action: 'conversations'
     }
-
-    /*def reply(){
-    	conversationService.replyConversation(params.id, params.message, springSecurityService.currentUser.user.id)
-    	redirect controller: 'conversation', action: 'view', id: params.id
-    }*/
 
     def reply(){
         def showed = conversationService.replyConversation(params.id, params.message, springSecurityService.currentUser.user.id)
@@ -35,7 +28,6 @@ class ConversationController {
     }
 
     def refreshMessages(){
-        println params;
         def conversation = Conversation.get(params.id as int)
     
         def taglib = new MessageTagLib()

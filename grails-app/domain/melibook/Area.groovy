@@ -9,4 +9,10 @@ class Area {
     static constraints = {
     	name nullable: false
     }
+
+    static getSortedPosts(def area){
+    	Area.findByName(area).posts.sort { 
+            it.timestamp
+        }.reverse()
+    }
 }

@@ -8,24 +8,15 @@ class PostController {
     def postService
     def springSecurityService
 
-    def index() { 
-        return [posts: Post.list()]
-    }
-
     def view(int id){
-        println id
         def post = Post.get(id)
         def likers = post.likes.collect{it.liker}
         def commenters = post.comments.collect{it.commenter}
 
-        println post
-        println likers
         return [post: post, likers: likers, commenters: commenters]
     }
 
     def newPost(){
-        println params
-
         if(params.area) //params.area is a boolean that tells if the post is from an area or not
            postService.create(params.content, true);
         else
@@ -35,7 +26,6 @@ class PostController {
 
     def addLike(int id){
         def response = postService.addLike(id);
-        println response
         if(response == false){
             render "error"
             return false
@@ -56,17 +46,9 @@ class PostController {
     def refreshPosts() {
         def area = springSecurityService.currentUser.user.area
 
-        println area
+        def postsAdapted = Area.getSortedPosts("all")
 
-        def postsAdapted = Area.findByName("all").posts.sort { 
-            it.timestamp   
-        }.reverse()
-
-        def areaPostsAdapted = Area.findByName(area.name).posts.sort { 
-            it.timestamp
-        }.reverse()
-
-        println params
+        def areaPostsAdapted = Area.getSortedPosts(area.name)
 
         def taglib = new PostTagLib()
 
