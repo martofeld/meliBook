@@ -57,7 +57,6 @@ class PostController {
             return
         }else{
             render taglib.post(posts: postsAdapted)
-            return
         }
     }
 
