@@ -1,12 +1,7 @@
 <g:each in="${posts}" var="post">
 	<div class="post">
 		<div class="user-picture">
-			<g:if test="${post.user.avatar}">
-				<div class="photo" style="background-image: url(${createLink(controller:'user', action:'avatar_image_another', params: [user: post.user.id])});"></div>
-			</g:if>
-			<g:else>
-				<div class="photo glyphicon glyphicon-user" style="font-size: 33px; padding: 14px;"></div>
-			</g:else>
+			<User:avatar user="${post.user}"/>
 		</div>
 		<div class="content">
 			<span class="user-post">${post.user.name}</span>

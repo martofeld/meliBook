@@ -2,16 +2,12 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
+		<asset:javascript src="index.js"/>
 	</head>
 	<body>
 		<div id="profile" class="profile">
 			<a href="${createLink(controller: 'user', action: 'index', params: [username: username])}">
-				<g:if test="${user.avatar}">
-					<div class="profile-pic" style="background-image: url(${createLink(controller:'user', action:'avatar_image', params: [user: user])});"></div>
-				</g:if>
-				<g:else>
-					<div class="profile-pic glyphicon glyphicon-user" style="padding: 25px; font-size: 60px; display: block;"></div>
-				</g:else>
+				<User:avatar user="${user}"/>
 			</a>
 			<div class="greetings">Hi ${user.name}!</div>
 			<div class="info-notifications">
@@ -76,79 +72,11 @@
 		</div>
 
 		<script type="text/javascript">
-			function addLike(id){
-				$.ajax({
-					url:'${createLink(controller: "post", action: "addLike")}',
-					method: 'GET',
-					data: {id: id},
-					success: function(response){
-						console.log(response)
-						var counter = "#likeCounter"+id;
-						$(counter).html(response);
-						if(response == 0){
-							$(counter).switchClass( "like", "no-like");
-						}else{
-							$(counter).switchClass( "no-like", "like");
-						}
-					},
-					error: function(response, error){
-						console.log(error)
-						console.log(response)
-					}
-				});
+			var links = {
+				like: ${createLink(controller: "post", action: "addLike")},
+				refreshFeed: ${createLink(controller: 'post', action: 'refreshPosts')},
+				refreshAreaFeed: ${createLink(controller: 'post', action: 'refreshPosts')}
 			}
-
-			function refreshFeed () {
-				$.ajax({
-					url: "${createLink(controller: 'post', action: 'refreshPosts')}",
-					method: "GET",
-					success: function(response){
-						console.log(response)
-						$("#posts").html(response);
-					},
-					error: function(error){
-						console.log(error);
-					}
-				});
-			}
-
-			function refreshAreaFeed () {
-				$.ajax({
-					url: "${createLink(controller: 'post', action: 'refreshPosts')}",
-					method: "GET",
-					data: {area: true},
-					success: function(response){
-						console.log(response);
-						$("#areaPosts").html(response);
-					},
-					error: function(error){
-						console.log(error);
-					}
-				});
-			}
-
-			$(function() {
-				setInterval(refreshFeed, 30000);
-				setInterval(refreshAreaFeed, 30000);
-
-				$('.nolike .like').click(function(){
-					$(this).toogleClass('nolike', 'like');
-				});
-
-				$('#option-all-btn').click(function(){
-					$('#areaFeed').hide();
-					$('#all-feed').show();
-					$('#option-all-btn').removeClass('feed-option').addClass('feed-option-selected')
-					$('#option-area-btn').removeClass('feed-option-selected').addClass('feed-option')
-				});
-
-				$('#option-area-btn').click(function(){
-					$('#all-feed').hide();
-					$('#areaFeed').show();
-					$('#option-area-btn').removeClass('feed-option').addClass('feed-option-selected')
-					$('#option-all-btn').removeClass('feed-option-selected').addClass('feed-option')
-				});
-			});
 		</script>
 	</body> 
 </html>
