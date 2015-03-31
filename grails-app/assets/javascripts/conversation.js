@@ -8,6 +8,7 @@ $(function (){
 
 	setInterval(refreshMessages, 15000);
 });
+
 var id = $("#id").val();
 console.log(id);
 $("#id").remove();

@@ -18,7 +18,7 @@
 				<div class="new-members-list">
 					<g:each in="${users}" var="member">
 						<div class="new-member">
-							<User:avatar user="${member}"/>
+							<User:avatar user="${member}" cssClass="new-member-photo"/>
 							<div class="new-member-info">
 								<div class="new-member-name">${member.name}</div>
 								<div class="new-member-area">${member.area.name}</div>

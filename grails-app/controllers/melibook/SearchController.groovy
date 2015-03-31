@@ -9,16 +9,17 @@ class SearchController {
     def index() { }
 
     def search(){
-    	def users = User.findAllByNameLike("%" + params.query + "%")
-    	def springUsers = []
-    	if (users == null)
-    		return [springUsers: springUsers]
+        def users = []
+        users << User.findAllByNameLike("%${params.query}%")
+        users << User.findAllByLastNameLike("%${params.query}%")
+        users << SpringUser.findAllByUsernameLike("%${params.query}%").user
 
-    	users.each{ user ->
-    		springUsers.add(SpringUser.findByUser(user))
-    	}
-    	[springUsers: springUsers]
-    	
+        users = users.flatten().unique()
 
+        def springUsers = users.collect{
+            SpringUser.findByUser(it)
+        }
+
+    	return [springUsers: springUsers]
     }
 }

@@ -17,7 +17,11 @@
 			<div class="content">
 				<span class="user-conversation">${conversation.users[0].name}
 				 ${conversation.users[0].lastName} </span>
-				<span class="text">${conversation.messages.last().sender.name}: ${conversation.messages.last().message}</span>
+				<span class="text">${conversation.messages.sort { 
+					it.timestamp
+				}.last().sender.name}: ${conversation.messages.sort { 
+					it.timestamp
+				}.last().message}</span>
 			</div>
 		</g:else>
 	</div>

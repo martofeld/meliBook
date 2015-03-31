@@ -66,8 +66,8 @@
 		<script type="text/javascript">
 			var links = {
 				like: "${createLink(controller: 'post', action: 'addLike')}",
-				refreshFeed: "${createLink(controller: 'post', action: 'refreshPosts')"},
-				refreshAreaFeed: "${createLink(controller: 'post', action: 'refreshPosts')"}
+				refreshFeed: "${createLink(controller: 'post', action: 'refreshPosts')}",
+				refreshAreaFeed: "${createLink(controller: 'post', action: 'refreshPosts')}"
 			}
 		</script>
 	</body> 

@@ -4,10 +4,10 @@ class UserTagLib {
 	static namespace = "User"
 
 	def avatar = { attrs ->
-		out << render(template:"/templates/avatarTemplate", model: [member: attrs.user])
+		out << render(template:"/templates/avatarTemplate", model: [member: attrs.user, cssClass: attrs.cssClass])
 	}
 
-	def conversations = { attrs ->
+	def conversation = { attrs ->
 		out << render(template:"/templates/conversationTemplate", model: [conversation: attrs.conversation])
 	}
 }
