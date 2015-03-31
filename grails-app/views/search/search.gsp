@@ -12,7 +12,7 @@
 					<a href="${createLink(controller: 'user', action:'index', params:[username: sUser.username])}">
 						${sUser.user.name} ${sUser.user.lastName}
 					</a>
-					<p>${sUser.user.area.name}</p>
+					<span><p>${sUser.user.area.name}</p></span>
 				</div>
 			</g:each>
 		</g:if>
