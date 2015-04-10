@@ -9,11 +9,11 @@ $(function (){
 	setInterval(refreshMessages, 15000);
 });
 
-var id = $("#id").val();
-console.log(id);
-$("#id").remove();
-
 function refresh (convId) {
+	var id = $("#id").val();
+	console.log(id);
+	$("#id").remove();
+
 	console.log(convId)
 	$.ajax({
 		url: links.refresh,
